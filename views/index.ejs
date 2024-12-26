@@ -1,13 +1,207 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    
+
+<head>
+  <title>
+    <%= title %>
+  </title>
   <link href="/styles/output.css" rel="stylesheet">
-    <body>
-      <section class="bg-blue-500 text-white p-4">
-        <h1><%= title %></h1>
-        <p>Welcome to <%= title %></p>
-      </section>
-    </body>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap" rel="stylesheet">
+</head>
+
+<body class="font-family: 'Roboto';">
+
+  <header class="bg-white flex items-center px-[32px] py-[32px]">
+    <!-- Logotype -->
+    <div class="flex justify-start">
+      <img src="/images/logotype.png" alt="Logo" class="h-8 w-auto">
+    </div>
+
+    <!-- Menu -->
+    <nav class="flex space-x-[32px] ml-auto uppercase text-gray-850 font-bold">
+      <a href="#" class="text-gray-850 hover:underline">Bästsäljare</a>
+      <a href="#" class="text-gray-850 hover:underline">Nyheter</a>
+      <a href="#" class="text-gray-850 hover:underline">Inspiration</a>
+      <a href="#" class="text-gray-850 hover:underline">Alla kategorier</a>
+    </nav>
+
+    <!-- Search and Cart  -->
+    <div class="flex items-center space-x-6 ml-8">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </svg>
+
+      </button>
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+
+
+  <!-- Hero  -->
+  <section class="hero flex justify-between items-center flex-row h-[708px] px-[163px] py-[120px] ">
+    <div class="item-start w-[517px] h-[302px]">
+      <h1 class="font-jaro text-[gray-800] text-[52px] leading-[52px] mb-4">
+        Ge dina väggar en personlighet
+      </h1>
+
+      <span class="font-roboto text-[gray-800] text-[16px] leading-[22px] w-[517px] h-[88px]">
+        Utforska vårt breda utbud av posters och prints som passar alla hem och stilar. Oavsett om du söker moderna
+        motiv,
+        klassiska konstverk eller inspirerande citat har vi något för dig. Kombinera dina favoriter och skapa en unik
+        tavelvägg som lyfter hela rummet.
+      </span>
+
+      <button class="w-[203px] h-[52px] bg-gray-800 rounded-[6px] my-4">
+        <span class="font-roboto font-semibold text-base text-white w-[155px]">
+          Utforska våra posters
+        </span>
+      </button>
+    </div>
+
+    <div class="Image flex w-[280px] h-auto">
+      <img src="/images/poster.png">
+    </div>
+  </section>
+
+
+    <!-- Nyheter -->
+    <section class="Postersection flex flex-col items-center gap-[32px] w-full h-auto mb-[48px]">
+      <!-- Rubrik -->
+      <h2 class="text-3xl font-bold text-gray-800 uppercase">Nyheter</h2>
+      <!-- Produktkort -->
+      <div class="flex flex-wrap justify-between gap-8">
+        <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+          <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto h-[300px]">
+          <div class="flex flex-col items-start">
+            <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+            <span class="text-lg text-gray-700">400 SEK</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-between gap-8">
+          <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+            <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto h-[300px]">
+            <div class="flex flex-col items-start">
+              <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+              <span class="text-lg text-gray-700">400 SEK</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-between gap-8">
+            <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+              <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto h-[300px]">
+              <div class="flex flex-col items-start">
+                <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+                <span class="text-lg text-gray-700">400 SEK</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap justify-between gap-8">
+              <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+                <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto h-[300px]">
+                <div class="flex flex-col items-start">
+                  <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+                  <span class="text-lg text-gray-700">400 SEK</span>
+                </div>
+              </div>
+      </div>
+    </section>
+
+     <!-- Vinter -->
+     <section class="Postersection flex flex-col items-center px-[32px] gap-[32px] w-full  h-auto mb-[48px]">
+      <!-- Rubrik -->
+      <h2 class="text-3xl font-bold text-gray-800 uppercase">Vinter</h2>
+      <!-- Produktkort -->
+      <div class="flex flex-wrap justify-between gap-8">
+        <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+          <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto h-[300px]">
+          <div class="flex flex-col items-start">
+            <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+            <span class="text-lg text-gray-700">400 SEK</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-between gap-8">
+          <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+            <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto h-[300px]">
+            <div class="flex flex-col items-start">
+              <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+              <span class="text-lg text-gray-700">400 SEK</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-between gap-8">
+            <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+              <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto h-[300px]">
+              <div class="flex flex-col items-start">
+                <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+                <span class="text-lg text-gray-700">400 SEK</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap justify-between gap-8">
+              <div class="flex flex-col items-start gap-2 w-[280px] h-[400px]">
+                <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto h-[300px]">
+                <div class="flex flex-col items-start">
+                  <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+                  <span class="text-lg text-gray-700">400 SEK</span>
+                </div>
+              </div>
+      </div>
+    </section>
+  </main>
+  
+
+  <!-- Footer -->
+  <!-- OBS OBS!! skall lägga till  172px padding på x också men fungerar dåligt nu när vi inte bestämt responsivitet. -->
+  <footer class="bg-gray-900 text-white py-[172px] px-[70px] flex justify-between items-center">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="/images/logotype_white-vertical.png" alt="Logo" class="h-[151px] w-auto">
+    </div>
+
+    <!-- Menu -->
+    <div class="grid grid-cols-3 gap-[69px] text-sm">
+      <!-- Follow Us -->
+      <div class="Follow us">
+        <h3 class="uppercase mb-2">Följ oss</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Facebook</a></li>
+          <li><a href="#" class="hover:underline">Instagram</a></li>
+          <li><a href="#" class="hover:underline">Tiktok</a></li>
+        </ul>
+      </div>
+
+      <!-- Skandiwall -->
+      <div>
+        <h3 class="uppercase mb-2">Skandiwall</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Om oss</a></li>
+          <li><a href="#" class="hover:underline">Samarbeten</a></li>
+        </ul>
+      </div>
+
+      <!-- Help Section -->
+      <div>
+        <h3 class="uppercase mb-2">Vi hjälper dig</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Kundtjänst</a></li>
+          <li><a href="#" class="hover:underline">Vanliga frågor</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
 </html>
