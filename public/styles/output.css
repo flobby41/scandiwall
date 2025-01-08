@@ -107,7 +107,7 @@
 }
 
 /*
-! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -563,12 +563,28 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.ml-8 {
+  margin-left: 2rem;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mt-\[16px\] {
+  margin-top: 16px;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
 
-.mb-\[48px\] {
-  margin-bottom: 48px;
+.mb-\[28px\] {
+  margin-bottom: 28px;
+}
+
+.mb-\[68px\] {
+  margin-bottom: 68px;
 }
 
 .ml-8 {
@@ -579,12 +595,12 @@ video {
   margin-left: auto;
 }
 
-.mb-\[px\] {
-  margin-bottom: px;
+.ml-8 {
+  margin-left: 2rem;
 }
 
-.mb-\[68px\] {
-  margin-bottom: 68px;
+.ml-auto {
+  margin-left: auto;
 }
 
 .flex {
@@ -642,6 +658,10 @@ video {
 
 .w-\[203px\] {
   width: 203px;
+}
+
+.w-\[280px\] {
+  width: 280px;
 }
 
 .w-\[280px\] {
@@ -745,17 +765,23 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
-.p-\[48px\] {
-  padding: 48px;
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
 }
 
-.p-\[32px\] {
-  padding: 32px;
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
-.px-\[163px\] {
-  padding-left: 163px;
-  padding-right: 163px;
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .px-\[32px\] {
@@ -783,8 +809,64 @@ video {
   padding-bottom: 32px;
 }
 
-.text-center {
-  text-align: center;
+.px-\[24px\] {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.py-\[14px\] {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.px-\[\] {
+  padding-left: ;
+  padding-right: ;
+}
+
+.px-\[167px\] {
+  padding-left: 167px;
+  padding-right: 167px;
+}
+
+.px-\[163px\] {
+  padding-left: 163px;
+  padding-right: 163px;
+}
+
+.py-\[\] {
+  padding-top: ;
+  padding-bottom: ;
+}
+
+.py-\[120px\] {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-\[16px\] {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.py-\[48px\] {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.py-\[2px\] {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.py-\[28px\] {
+  padding-top: 28px;
+  padding-bottom: 28px;
 }
 
 .font-jaro {
