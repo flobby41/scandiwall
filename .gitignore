@@ -70,3 +70,6 @@ typings/
 
 # Ignore Tailwind build output
 public/styles/output.css
+
+# Ignore DS_Store
+.DS_Store
