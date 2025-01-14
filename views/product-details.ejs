@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link href="/styles/output.css" rel="stylesheet">
+  <link href="/stylesheets/tailwind.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <header class="bg-white flex items-center px-[32px]  justify-between">
+    <!-- Logotype -->
+    <div class="flex justify-start">
+      <img src="/images/logotype.png" alt="Logo" class="w-[440px] lg:w-[206px] py-[32px]">
+    </div>
+  
+    <!-- Menu -->
+    <nav class="flex hidden lg:block space-x-[32px] uppercase text-gray-850 font-bold ml-auto">
+      <a href="#" class="text-gray-850 hover:underline">Bästsäljare</a>
+      <a href="#" class="text-gray-850 hover:underline">Nyheter</a>
+      <a href="#" class="text-gray-850 hover:underline">Inspiration</a>
+      <a href="#" class="text-gray-850 hover:underline">Alla kategorier</a>
+    </nav>
+  
+    <!-- Search, Cart, and Dropdown Icon -->
+    <div class="flex items-center space-x-6 ml-6">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </svg>
+      </button>
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+      </button>
+      
+      <!-- Dropdown Icon -->
+      <div class="relative lg:hidden">
+        <button onclick="toggleDropdown()" class="hover:bg-gray-200 p-2 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>          
+        </button>
+        
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="absolute uppercase right-0 mt-2 w-48 bg-white shadow-lg rounded-lg hidden">
+          <a href="#" class="block px-4 py-2 text-gray-850 hover:bg-gray-100">Bästsäljare</a>
+          <a href="#" class="block px-4 py-2 text-gray-850 hover:bg-gray-100">Nyheter</a>
+          <a href="#" class="block px-4 py-2 text-gray-850 hover:bg-gray-100">Inspiration</a>
+          <a href="#" class="block px-4 py-2 text-gray-850 hover:bg-gray-100">Alla kategorier</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <script>
+    function toggleDropdown() {
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      dropdownMenu.classList.toggle('hidden');
+    }
+  </script>
+  </header>
+  
+
+
+
+  <!-- Hero  -->
+  <section class="hero flex flex-col lg:flex-row-reverse items-center text-center lg:text-left justify-between px-[163px] py-[120px] ">
+    <div class="Image flex w-[280px] h-auto pb-4">
+      <img src="/images/poster.png">
+    </div>
+
+    <div class="item-start w-[517px] h-[302px]">
+      <h1 class="text-[gray-800] text-[52px] leading-[52px] mb-4">
+        Ge dina väggar en personlighet
+      </h1>
+
+      <span class="font-roboto text-[gray-800] text-[16px] leading-[22px] w-[517px] h-[88px]">
+        Utforska vårt breda utbud av posters och prints som passar alla hem och stilar. Oavsett om du söker moderna
+        motiv,
+        klassiska konstverk eller inspirerande citat har vi något för dig. Kombinera dina favoriter och skapa en unik
+        tavelvägg som lyfter hela rummet.
+      </span>
+
+      <button class="w-[203px] h-[52px] bg-gray-800 rounded-[6px] my-4">
+        <span class="font-roboto font-semibold text-base text-white w-[155px]">
+          Utforska våra posters
+        </span>
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- Nyheter -->
+<section class="Postersection items-center w-full h-auto mb-[48px] p-[32px]">
+  <!-- Rubrik -->
+  <h2>Nyheter</h2>
+  <!-- Produktkort -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-2 w-full">
+    <!-- Produkt 1 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+
+    <!-- Produkt 2 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+
+    <!-- Produkt 3 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3>Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+
+    <!-- Produkt 4 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_-LtP26tbs1o.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Vinter -->
+<section class="Postersection items-center w-full h-auto mb-[48px] p-[32px]">
+  <!-- Rubrik -->
+  <h2>Vinter</h2>
+  <!-- Produktkort -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-2 w-full">
+    <!-- Produkt 1 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+
+    <!-- Produkt 2 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+
+    <!-- Produkt 3 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+
+    <!-- Produkt 4 -->
+    <div class="flex flex-col items-start">
+      <img src="/images/poster-images/unsplash_cGW1w-qLix8.jpg" alt="Produktbild" class="w-auto mb-4">
+      <div class="flex flex-col items-start">
+        <h3 class="text-xl font-semibold text-gray-900">Produkt 2</h3>
+        <span class="text-lg text-gray-700 mb-4">400 SEK</span>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+  
+
+  <!-- Footer -->
+ 
+  <footer class="bg-gray-900 text-white py-[172px] px-[172px] flex flex-col lg:flex-row lg:justify-between items-start lg:items-center">
+    <!-- Logo -->
+    <div class="logo mb-8 lg:mb-0">
+      <img src="/images/logotype_white-vertical.png" alt="Logo" class="h-[151px] w-auto">
+    </div>
+  
+    <!-- Menu -->
+    <div class="grid grid-cols-1 text-center lg:grid-cols-3 gap-[30px] lg:gap-[69px] text-sm w-full lg:w-auto">
+      <!-- Follow Us -->
+      <div>
+        <h3 class="uppercase mb-2">Följ oss</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Facebook</a></li>
+          <li><a href="#" class="hover:underline">Instagram</a></li>
+          <li><a href="#" class="hover:underline">Tiktok</a></li>
+        </ul>
+      </div>
+  
+      <!-- Skandiwall -->
+      <div>
+        <h3 class="uppercase mb-2">Skandiwall</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Om oss</a></li>
+          <li><a href="#" class="hover:underline">Samarbeten</a></li>
+        </ul>
+      </div>
+  
+      <!-- Help Section -->
+      <div>
+        <h3 class="uppercase mb-2">Vi hjälper dig</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:underline">Kundtjänst</a></li>
+          <li><a href="#" class="hover:underline">Vanliga frågor</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  
+
+</body>
+
+</html>
