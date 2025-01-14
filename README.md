@@ -2,3 +2,4 @@
 
 
 npm run tailwind:watch
+npm run setup-db
