@@ -39,7 +39,8 @@
        
         <% products.forEach(product => { %>
           <div class="produktkort flex flex-col items-center">
-            <a href="#" class="no-underline">
+            <a href="/products/<%= product.slugs %>" class="no-underline">
+            
               <div class="productgrid-container relative w-full">
                 <img src="<%= product.image %>" alt="Produktbild på tshirt" class="productimage w-full h-auto rounded-lg">
                 <div class="ikon-container absolute bottom-2 right-2">
@@ -64,7 +65,7 @@
       <section class="product-grid grid grid-cols-1 lg:grid-cols-4 gap-2 w-full mb-8">
         <% products.forEach(product => { %>
           <div class="produktkort flex flex-col items-center">
-            <a href="#" class="no-underline">
+            <a href="/products/<%= product.slugs %>"class="no-underline">
               <div class="productgrid-container relative w-full">
                 
                 <img src="<%= product.image %>" alt="Produktbild på tshirt" class="productimage w-full h-auto rounded-lg">
