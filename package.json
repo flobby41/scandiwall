@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "tailwind:watch": "npx tailwindcss -i ./public/stylesheets/tailwind.css -o ./public/styles/output.css --watch",
-    "setup-db": "node ./db/setup-db.js"
+    "setup-db": "node ./db/db.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
