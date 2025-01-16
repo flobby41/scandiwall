@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link href="/styles/output.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="font-family: 'Roboto';">
+    <main>
+      <div
+        class="flex flex-col items-center sm:flex-row sm:justify-between lg:flex-row lg:justify-between lg:items-center gap-4 px-4 lg:px-16 py-4 w-full"
+      >
+        <!-- Administration Section -->
+        <div
+          class="flex flex-col items-center sm:items-start text-center sm:text-left"
+        >
+          <h1
+            class="font-jaro text-gray-800 text-[32px] leading-[32px] font-normal lg:text-[52px] lg:leading-[52px]"
+          >
+            Administration
+          </h1>
+        </div>
+      </div>
+
+      <!-- Admin register page here -->
+
+      <article
+        class="flex flex-col items-center px-4 lg:px-16 py-6 w-full font-roboto"
+      >
+        <div class="w-full lg:max-w-4xl">
+          <!-- Form Heading -->
+          <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">
+            Lägg till ny produkt
+          </h2>
+
+          <!-- Form Start -->
+          <form
+            class="bg-white shadow-md rounded-lg p-6 space-y-6"
+            method="POST"
+            aria-labelledby="formHeading"
+            action="/admin/products/register"
+          >
+            <!-- Name Field -->
+            <div>
+              <label for="name" class="block text-gray-800 font-semibold mb-2">
+                Namn <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                maxlength="25"
+                required
+                aria-describedby="nameHelp"
+              />
+              <p id="nameHelp" class="text-sm text-gray-500 mt-1">
+                Max 25 tecken.
+              </p>
+            </div>
+
+            <!-- Description Field -->
+            <div>
+              <label
+                for="description"
+                class="block text-gray-800 font-semibold mb-2"
+              >
+                Beskrivning
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                rows="4"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                aria-describedby="descriptionHelp"
+              ></textarea>
+              <p id="descriptionHelp" class="text-sm text-gray-500 mt-1">
+                Kort beskrivning av produkten.
+              </p>
+            </div>
+
+            <!-- Image URL Field -->
+            <div>
+              <label for="image" class="block text-gray-800 font-semibold mb-2">
+                Bild-URL <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="url"
+                id="image"
+                name="image"
+                placeholder="https://example.com/image.jpg"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                required
+                aria-describedby="imageHelp"
+              />
+              <p id="imageHelp" class="text-sm text-gray-500 mt-1">
+                Ange en giltig URL till produktbilden.
+              </p>
+            </div>
+
+            <!-- Stock Quantity Field -->
+            <div>
+              <label
+                for="stock_quantity"
+                class="block text-gray-800 font-semibold mb-2"
+              >
+                Kvantitet <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="stock_quantity"
+                name="stock_quantity"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                required
+              />
+            </div>
+
+            <!-- Price Field -->
+            <div>
+              <label for="price" class="block text-gray-800 font-semibold mb-2">
+                Pris <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <!-- Category Checkboxes -->
+            <fieldset class="border border-gray-300 rounded-lg p-4">
+              <legend class="font-semibold text-gray-800">Kategori</legend>
+              <div class="flex flex-col gap-3 mt-3">
+                <!-- Nyheter -->
+                <label
+                  for="category-nyheter"
+                  class="flex items-center gap-2 text-gray-800"
+                >
+                  <input
+                    type="checkbox"
+                    id="category-nyheter"
+                    name="category"
+                    value="nyheter"
+                    class="w-5 h-5 border-2 border-gray-800 rounded focus:ring-2 focus:ring-blue-500"
+                  />
+                  Nyheter
+                </label>
+
+                <!-- Vinter -->
+                <label
+                  for="category-vinter"
+                  class="flex items-center gap-2 text-gray-800"
+                >
+                  <input
+                    type="checkbox"
+                    id="category-vinter"
+                    name="category"
+                    value="vinter"
+                    class="w-5 h-5 border-2 border-gray-800 rounded focus:ring-2 focus:ring-blue-500"
+                  />
+                  Vinter
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Publishing Date -->
+            <div>
+              <label
+                for="registrationDate"
+                class="block text-gray-800 font-semibold mb-2"
+              >
+                Publiceringsdatum
+              </label>
+              <input
+                type="date"
+                id="registrationDate"
+                name="registrationDate"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+
+            <!-- Submit and Reset Buttons -->
+            <div class="flex justify-center gap-4">
+              <button
+                type="submit"
+                class="flex items-center justify-center gap-2 px-6 py-3 w-auto h-[52px] bg-gray-800 text-white text-[14px] lg:text-[16px] font-roboto font-semibold rounded-[6px] focus:ring-2 focus:ring-gray-500 focus:outline-none"
+              >
+                Lägg till produkt
+              </button>
+              <button
+                type="reset"
+                class="flex items-center gap-2 px-6 py-3 w-auto h-[52px] border-2 border-gray-800 rounded-[6px] text-gray-800 text-[14px] lg:text-[16px] font-roboto font-semibold focus:ring-2 focus:ring-gray-500 focus:outline-none"
+              >
+                Rensa
+              </button>
+            </div>
+          </form>
+        </div>
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gray-900 text-white py-[172px] px-[172px] flex flex-col items-center lg:flex-row lg:justify-between items-start lg:items-center"
+    >
+      <!-- Logo -->
+      <div class="logo mb-8 lg:mb-0">
+        <img
+          src="/images/logotype_white-vertical.png"
+          alt="Logo"
+          class="h-[151px] w-auto"
+        />
+      </div>
+
+      <!-- Menu -->
+      <div
+        class="grid grid-cols-1 text-center lg:grid-cols-3 gap-[30px] lg:gap-[69px] text-sm w-full lg:w-auto"
+      >
+        <!-- Follow Us -->
+        <div>
+          <h3 class="uppercase mb-2">Följ oss</h3>
+          <ul class="space-y-1">
+            <li><a href="#" class="hover:underline">Facebook</a></li>
+            <li><a href="#" class="hover:underline">Instagram</a></li>
+            <li><a href="#" class="hover:underline">Tiktok</a></li>
+          </ul>
+        </div>
+
+        <!-- Skandiwall -->
+        <div>
+          <h3 class="uppercase mb-2">Skandiwall</h3>
+          <ul class="space-y-1">
+            <li><a href="#" class="hover:underline">Om oss</a></li>
+            <li><a href="#" class="hover:underline">Samarbeten</a></li>
+          </ul>
+        </div>
+
+        <!-- Help Section -->
+        <div>
+          <h3 class="uppercase mb-2">Vi hjälper dig</h3>
+          <ul class="space-y-1">
+            <li><a href="#" class="hover:underline">Kundtjänst</a></li>
+            <li><a href="#" class="hover:underline">Vanliga frågor</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
