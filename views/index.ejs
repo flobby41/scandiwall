@@ -7,72 +7,12 @@
 
   <title>Product List</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f8f8;
-      padding: 20px;
-    }
+ 
 
-    .cart {
-      position: fixed;
-      top: 10px;
-      right: 20px;
-      font-size: 24px;
-      cursor: pointer;
-      text-decoration: none;
-      color: black;
-    }
+  
 
-    .cart-badge {
-      position: absolute;
-      top: -5px;
-      right: -10px;
-      background-color: red;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .product-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .product-card {
-      border: 1px solid #ddd;
-      padding: 10px;
-      border-radius: 5px;
-      text-align: center;
-      width: 200px;
-    }
-
-    .product-card img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .product-card button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .product-card button:hover {
-      background-color: #0056b3;
-    }
+    
+    
     .notification {
       position: fixed;
       top: 20px;
@@ -141,14 +81,6 @@
       </div>
     </section>
 
-
-
-
- 
-
-
-
-
   <div id="data-output"></div>
   <div class="notification" id="notification">
     <span id="notification-text"></span>
@@ -175,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(cartAPI);
       const backendCart = await response.json();
-      console.log("Réponse de l'API backend :", backendCart);
       cart = backendCart.map((item) => ({
         product_id: item.product_id,
         name: item.name,
@@ -257,8 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
         <% products.filter(product => product.category === 'Nyheter').forEach(product => { %>
           <div class="produktkort flex flex-col items-center" data-id="<%= product.id %>">
-            
-            
             <div class="productgrid-container relative w-full">
               <a href="/products/<%= product.slugs %>" class="no-underline">
                 <img src="<%= product.image %>" alt="Produktbild på tshirt" class="productimage w-full h-auto mb-[12px]">
@@ -266,8 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
               <div class="produktinfo w-full flex justify-between items-center text-black">
                 <h2 class="text-sm font-semibold mb-[12px]"><%= product.name %></h2>
-                <button class="add-to-cart-btn">BOUTON </button>
-              </div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6 add-to-cart-btn">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />             
+                </div>
               <span class="text-sm block"><%= product.price %> SEK</span>
           </div>
         <% }); %>
@@ -286,7 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
               <div class="produktinfo w-full flex justify-between items-center text-black">
                 <h2 class="text-sm font-semibold mb-[12px]"><%= product.name %></h2>
-               <button class="add-to-cart-btn">BOUTON </button>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6 add-to-cart-btn">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />                  
               </div>
               <span class="text-sm block"><%= product.price %> SEK</span>
           </div>
