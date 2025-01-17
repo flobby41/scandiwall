@@ -87,87 +87,87 @@
 
 
     <script>
-// Utility function to save cart-badge value
-function saveCartBadge(value) {
-  localStorage.setItem('cartBadge', value);
-}
-
-// Utility function to load cart-badge value
-function loadCartBadge() {
-  return parseInt(localStorage.getItem('cartBadge')) || 0; // Ensure it's a number
-}
-
-// Restore cart-badge on page load
-window.addEventListener('DOMContentLoaded', () => {
-  const cartBadgeElement = document.getElementById('cart-badge');
-  const cartBadgeValue = loadCartBadge();
-  if (cartBadgeElement) {
-    cartBadgeElement.textContent = cartBadgeValue;
-    if (cartBadgeValue > 0) {
-      cartBadgeElement.style.display = 'flex'; // Show badge only if > 0
-    }
-  }
-});
-function loadCartBadge() {
-  return parseInt(localStorage.getItem('cartBadge')) || 0;
-}
-
-function restoreCartBadge() {
-  const cartBadgeElement = document.getElementById('cart-badge');
-  const cartBadgeValue = loadCartBadge();
-  if (cartBadgeElement) {
-    cartBadgeElement.textContent = cartBadgeValue;
-    if (cartBadgeValue > 0) {
-      cartBadgeElement.style.display = 'flex';
-    }
-  }
-}
-
-window.addEventListener('DOMContentLoaded', restoreCartBadge);
-
-document.querySelector('.add-to-cart-btn').addEventListener('click', async function () {
-  const productId = this.getAttribute('data-product-id');
-  const productName = this.getAttribute('data-product-name');
-  const price = this.getAttribute('data-product-price'); // Get the product price
-  const quantity = 1; // Default quantity
-  const userId = 1; // Temporary user ID for testing
-
+document.addEventListener('DOMContentLoaded', () => {
+  const cartBadge = document.getElementById('cart-badge');
+  const cartAPI = 'http://localhost:3000/cartAPI';
   const notification = document.getElementById('notification');
   const notificationText = document.getElementById('notification-text');
   const closeNotification = document.getElementById('close-notification');
+  const quantity = 1; // Default quantity
+  const userId = 1; // Temporary user ID for testing
 
-  try {
-    const response = await fetch('/cartAPI', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product_id: productId, user_id: userId, quantity, price }),
-    });
+  // Charger le panier depuis le backend et synchroniser avec le cart-badge
+  const syncCartBadgeWithBackend = async () => {
+    try {
+      const response = await fetch(cartAPI);
+      if (!response.ok) {
+        throw new Error('Failed to fetch cart items from backend.');
+      }
+      const backendCart = await response.json();
+      const totalItems = backendCart.reduce((sum, item) => sum + item.quantity, 0);
 
-    if (response.ok) {
-      // Update cart badge
-      const cartBadge = document.getElementById('cart-badge');
-      let currentBadgeValue = parseInt(cartBadge.textContent) || 0;
-      currentBadgeValue += quantity;
-      cartBadge.textContent = currentBadgeValue;
-      cartBadge.style.display = 'flex'; // Ensure badge is visible
-      saveCartBadge(currentBadgeValue); // Save updated value to localStorage
+      // Mettre à jour le badge du panier
+      cartBadge.textContent = totalItems;
+      cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+    } catch (error) {
+      console.error('Error syncing cart badge:', error);
+    }
+  };
 
-      // Show notification
+   // Charger initialement le badge
+   syncCartBadgeWithBackend();
+
+// Synchroniser à l'ouverture ou lors de la navigation arrière
+window.addEventListener("pageshow", syncCartBadgeWithBackend);
+  // Ajouter un produit au panier
+  const addToCart = async (productId, productName, price) => {
+    try {
+      const response = await fetch(cartAPI, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product_id: productId,
+          user_id: userId,
+          quantity: quantity,
+          price: price,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add product to cart.');
+      }
+
+      // Synchroniser le badge après ajout
+      syncCartBadgeWithBackend();
+
+      // Afficher une notification
       notificationText.textContent = `${productName} has been added to your cart!`;
       notification.classList.add('show');
       setTimeout(() => {
         notification.classList.remove('show');
       }, 5000);
+
       closeNotification.addEventListener('click', () => {
         notification.classList.remove('show');
       });
-    } else {
-      console.error('Failed to add to cart');
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
     }
-  } catch (error) {
-    console.error('Error adding to cart:', error);
-  }
+  };
+
+  // Gestionnaire pour le bouton "Add to Cart"
+  document.querySelector('.add-to-cart-btn').addEventListener('click', function () {
+    const productId = this.getAttribute('data-product-id');
+    const productName = this.getAttribute('data-product-name');
+    const price = parseFloat(this.getAttribute('data-product-price'));
+
+    addToCart(productId, productName, price);
+  });
+
+  // Charger et synchroniser le badge à l'initialisation
+  syncCartBadgeWithBackend();
 });
+
     </script>
   </body>
 </html>

@@ -119,6 +119,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Charger initialement le badge
+  syncCartWithBackend();
+
+  // Synchroniser à l'ouverture ou lors de la navigation arrière
+  window.addEventListener("pageshow", syncCartWithBackend);
+
   // Sauvegarder le panier dans localStorage
   const saveCartToLocalStorage = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -255,6 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
     notification.classList.remove("show");
   });
 });
+
   </script>
 </body>
 </html>
