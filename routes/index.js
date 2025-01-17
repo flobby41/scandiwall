@@ -15,9 +15,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> main
 module.exports = router;

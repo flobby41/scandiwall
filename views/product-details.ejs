@@ -57,7 +57,7 @@
    
     <div class="notification" id="notification">
       <span id="notification-text"></span>
-      <a href="http://localhost:3000/cartAPI/" id="view-cart">View Cart</a>
+      <a href="/shoppingCart" id="view-cart">View Cart</a>
       <button class="close-notification" id="close-notification">×</button>
     </div>
     <main
@@ -77,58 +77,97 @@
           minimalistiska designen gör postern perfekt för köket, fikahörnan
           eller vardagsrummet.
         </p>
-        <button class="add-to-cart-btn primary-button md:self-start"data-product-id="<%= product.id %>"
+        <button id="add-to-cart-btn" class="add-to-cart-btn primary-button md:self-start"data-product-id="<%= product.id %>"
           data-product-price="<%= product.price %>" data-product-name="<%= product.name %>" >Lägg till i varukorgen</button>
       </div>
+
     </main>
 
     <%- include('partials/_footer') %>
 
 
-
     <script>
+// Utility function to save cart-badge value
+function saveCartBadge(value) {
+  localStorage.setItem('cartBadge', value);
+}
 
-document.querySelector(".add-to-cart-btn").addEventListener("click", async function () {
-        const productId = this.getAttribute("data-product-id");
-        const productName = this.getAttribute("data-product-name")
-        const price = this.getAttribute("data-product-price"); // Get the product price
-        const quantity = 1; // Default quantity
-        const userId = 1; // Temporary user ID for testing
-        const notification = document.getElementById("notification");
-        const notificationText = document.getElementById("notification-text");
-        const closeNotification = document.getElementById("close-notification");
+// Utility function to load cart-badge value
+function loadCartBadge() {
+  return parseInt(localStorage.getItem('cartBadge')) || 0; // Ensure it's a number
+}
 
-        try {
-          const response = await fetch("/cartAPI", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ product_id: productId, user_id: userId, quantity, price }),
-          });
+// Restore cart-badge on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const cartBadgeElement = document.getElementById('cart-badge');
+  const cartBadgeValue = loadCartBadge();
+  if (cartBadgeElement) {
+    cartBadgeElement.textContent = cartBadgeValue;
+    if (cartBadgeValue > 0) {
+      cartBadgeElement.style.display = 'flex'; // Show badge only if > 0
+    }
+  }
+});
+function loadCartBadge() {
+  return parseInt(localStorage.getItem('cartBadge')) || 0;
+}
 
-          if (response.ok) {
-            // Update cart badge
-            const cartBadge = document.getElementById("cart-badge");
-            cartBadge.textContent = parseInt(cartBadge.textContent) + quantity;
+function restoreCartBadge() {
+  const cartBadgeElement = document.getElementById('cart-badge');
+  const cartBadgeValue = loadCartBadge();
+  if (cartBadgeElement) {
+    cartBadgeElement.textContent = cartBadgeValue;
+    if (cartBadgeValue > 0) {
+      cartBadgeElement.style.display = 'flex';
+    }
+  }
+}
 
-            // Show notification
-      const showNotification = (productName) => {
-        notificationText.textContent = `${productName} has been added to your cart!`;
-        notification.classList.add("show");
-        setTimeout(() => {
-          notification.classList.remove("show");
-        }, 5000);
-      };
-      showNotification(productName);
-      closeNotification.addEventListener("click", () => {
-        notification.classList.remove("show");
+window.addEventListener('DOMContentLoaded', restoreCartBadge);
+
+document.querySelector('.add-to-cart-btn').addEventListener('click', async function () {
+  const productId = this.getAttribute('data-product-id');
+  const productName = this.getAttribute('data-product-name');
+  const price = this.getAttribute('data-product-price'); // Get the product price
+  const quantity = 1; // Default quantity
+  const userId = 1; // Temporary user ID for testing
+
+  const notification = document.getElementById('notification');
+  const notificationText = document.getElementById('notification-text');
+  const closeNotification = document.getElementById('close-notification');
+
+  try {
+    const response = await fetch('/cartAPI', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product_id: productId, user_id: userId, quantity, price }),
+    });
+
+    if (response.ok) {
+      // Update cart badge
+      const cartBadge = document.getElementById('cart-badge');
+      let currentBadgeValue = parseInt(cartBadge.textContent) || 0;
+      currentBadgeValue += quantity;
+      cartBadge.textContent = currentBadgeValue;
+      cartBadge.style.display = 'flex'; // Ensure badge is visible
+      saveCartBadge(currentBadgeValue); // Save updated value to localStorage
+
+      // Show notification
+      notificationText.textContent = `${productName} has been added to your cart!`;
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 5000);
+      closeNotification.addEventListener('click', () => {
+        notification.classList.remove('show');
       });
-          } else {
-            console.error("Failed to add to cart");
-          }
-        } catch (error) {
-          console.error("Error adding to cart:", error);
-        }
-      });
+    } else {
+      console.error('Failed to add to cart');
+    }
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+  }
+});
     </script>
   </body>
 </html>
