@@ -1,24 +1,62 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link href="/styles/output.css" rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<html lang="sv">
 
-  <body>
-    <%- include('../partials/_header') %>
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link href="/styles/output.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <%- include('../partials/_header') %>
 
 
-    <main
-      class="flex flex-col gap-10 md:flex-row w-full py-16 px-8 md:px-20 max-w-screen-2xl mx-auto md:items-center"
-    >
-      Test
+    <main class="flex flex-col gap-10 md:flex-row w-full py-16 px-8 md:px-20 max-w-screen-2xl mx-auto md:items-center">
+      <div class="text-section">
+        <h1>Returpolicy</h1>
+
+        <p class="mb-2">Vi på Skandiawall vill att du ska vara helt nöjd med ditt köp. Om du av någon anledning inte är
+          nöjd med din beställning, erbjuder vi en enkel returprocess. Här kan du läsa om våra regler för retur och byte
+          av produkter.</p>
+
+        <p class="mb-2"><span class="font-bold">Returvillkor:</span>
+          Du har rätt att returnera din vara inom 14 dagar från det att du mottagit den, förutsatt att produkten är i
+          originalskick och inte använt. Returer som inte uppfyller dessa krav kan tyvärr inte accepteras.</p>
+
+        <p class="mb-2"><span class="font-bold">Så här returnerar du en produkt:</span>
+          För att göra en retur, vänligen skicka ett e-postmeddelande till <a href="mailto:kundtjanst@skandiwall.se"
+            class="text-blue-600">kundtjanst@skandiwall.se</a> och inkludera ditt ordernummer samt information om vilken
+          produkt du vill returnera. Vi skickar då vidare instruktioner för returfrakten.</p>
+
+        <p class="mb-2"><span class="font-bold">Returfrakt:</span>
+          Kostnaden för returfrakt står du själv för, och vi rekommenderar att du använder en spårbar fraktmetod för att
+          säkerställa att vi får tillbaka din retur.</p>
+
+        <p class="mb-2"><span class="font-bold">Återbetalning:</span>
+          Så snart vi mottagit och godkänt din retur kommer vi att behandla återbetalningen. Återbetalningen sker till
+          samma betalmetod som användes vid köpet. Observera att det kan ta upp till 10 arbetsdagar innan
+          återbetalningen syns på ditt konto.</p>
+
+        <p class="mb-2"><span class="font-bold">Byte av produkter:</span>
+          Vi erbjuder tyvärr inte byte av produkter. Om du vill byta en produkt måste du returnera den och göra ett nytt
+          köp av den önskade produkten.</p>
+
+        <p class="font-bold">Observera:</p>
+        <ul class="mb-2">
+          <li>Alla produkter som returneras ska vara i originalförpackning och utan skador eller tecken på användning.
+          </li>
+          <li>Vänligen se till att produkten är ordentligt packad för att undvika skador under returfrakten.</li>
+        </ul>
+
+        <p class="font-bold">Tack för att du handlar hos Skandiawall! Vi strävar efter att göra din returupplevelse så
+          enkel och smidig som möjligt.</p>
+      </div>
+
     </main>
 
     <%- include('../partials/_footer') %>
-  </body>
+</body>
+
 </html>

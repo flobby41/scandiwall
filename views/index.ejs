@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link href="/styles/output.css" rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<html lang="sv">
 
-  <body>
-    <%- include('partials/_header') %>
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link href="/styles/output.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <%- include('partials/_header') %>
 
     <main>
       <!-- Hero  -->
@@ -35,58 +35,75 @@
 
       <!-- Nyheter -->
       <h2>Nyheter</h2>
-      <section class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] w-full mb-8 px-8 py-12 md:px-20 max-w-screen-2xl mx-auto">
-    
-        <% products.filter(product => product.category === 'Nyheter').forEach(product => { %>
+      <section
+        class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] w-full mb-8 px-8 py-12 md:px-20 max-w-screen-2xl mx-auto">
+
+        <% products.filter(product=> product.category === 'Nyheter').forEach(product => { %>
           <div class="produktkort flex flex-col items-center">
             <a href="/product-details/<%= product.id %>" class="no-underline">
 
               <div class="productgrid-container relative w-full">
-                <img src="<%= product.image %>" alt="Produktbild på tshirt" class="productimage w-full h-auto mb-[12px]">
+                <img src="<%= product.image %>" alt="Produktbild på tshirt"
+                  class="productimage w-full h-auto mb-[12px]">
               </div>
               <div class="produktinfo w-full flex justify-between items-center text-black">
-                <h2 class="text-sm font-semibold mb-[12px]"><%= product.name %></h2>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                <h2 class="text-sm font-semibold mb-[12px]">
+                  <%= product.name %>
+                </h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="black" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                 </svg>
               </div>
-              <span class="text-sm block"><%= product.price %> SEK</span>
+              <span class="text-sm block">
+                <%= product.price %> SEK
+              </span>
             </a>
           </div>
-        <% }); %>
+          <% }); %>
       </section>
-      
-      
-      
+
+
+
 
       <!-- Vinter -->
       <!-- Rubrik -->
       <h2>Vinter</h2>
-      <section class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] w-full mb-8 px-8 py-12 md:px-20 max-w-screen-2xl mx-auto">
-    
-        <% products.filter(product => product.category === 'Vinter').forEach(product => { %>
+      <section
+        class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] w-full mb-8 px-8 py-12 md:px-20 max-w-screen-2xl mx-auto">
+
+        <% products.filter(product=> product.category === 'Vinter').forEach(product => { %>
           <div class="produktkort flex flex-col items-center">
             <a href="/product-details/<%= product.id %>" class="no-underline">
 
               <div class="productgrid-container relative w-full">
-                <img src="<%= product.image %>" alt="Produktbild på tshirt" class="productimage w-full h-auto mb-[12px]">
+                <img src="<%= product.image %>" alt="Produktbild på tshirt"
+                  class="productimage w-full h-auto mb-[12px]">
               </div>
               <div class="produktinfo w-full flex justify-between items-center text-black">
-                <h2 class="text-sm font-semibold mb-[12px]"><%= product.name %></h2>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                <h2 class="text-sm font-semibold mb-[12px]">
+                  <%= product.name %>
+                </h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="black" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                 </svg>
               </div>
-              <span class="text-sm block"><%= product.price %> SEK</span>
+              <span class="text-sm block">
+                <%= product.price %> SEK
+              </span>
             </a>
           </div>
-        <% }); %>
+          <% }); %>
       </section>
-      
+
 
 
     </main>
 
     <%- include('partials/_footer') %>
-  </body>
+</body>
+
 </html>
