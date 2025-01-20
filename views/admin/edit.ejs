@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
+    <title>Redigera produkt</title>
     <link href="/styles/output.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
@@ -27,19 +27,21 @@
         </div>
       </div>
     </header>
+
     <main>
       <article
         class="flex flex-col items-center px-4 lg:px-16 py-6 w-full font-roboto"
       >
         <div class="w-full lg:max-w-4xl">
           <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">
-            Lägg till ny produkt
+            Redigera produkt med namn <%= product.name %> och ID: <%= product.id
+            %>
           </h2>
+
           <form
-            class="bg-white shadow-md rounded-lg p-6 space-y-6"
+            id="editProductForm"
             method="POST"
-            aria-labelledby="formHeading"
-            action="/admin/products/register"
+            class="bg-white shadow-md rounded-lg p-6 space-y-6"
           >
             <div>
               <label for="name" class="block text-gray-800 font-semibold mb-2">
@@ -49,6 +51,7 @@
                 type="text"
                 id="name"
                 name="name"
+                value="<%= product.name %>"
                 class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 maxlength="25"
                 required
@@ -58,6 +61,7 @@
                 Max 25 tecken.
               </p>
             </div>
+
             <div>
               <label
                 for="description"
@@ -71,7 +75,9 @@
                 rows="4"
                 class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 aria-describedby="descriptionHelp"
-              ></textarea>
+              >
+<%= product.description %></textarea
+              >
               <p id="descriptionHelp" class="text-sm text-gray-500 mt-1">
                 Kort beskrivning av produkten.
               </p>
@@ -85,6 +91,7 @@
                 type="url"
                 id="image"
                 name="image"
+                value="<%= product.image %>"
                 placeholder="https://example.com/image.jpg"
                 class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 required
@@ -94,6 +101,7 @@
                 Ange en giltig URL till produktbilden.
               </p>
             </div>
+
             <div>
               <label
                 for="stock_quantity"
@@ -105,6 +113,7 @@
                 type="number"
                 id="stock_quantity"
                 name="stock_quantity"
+                value="<%= product.stock_quantity %>"
                 class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 required
               />
@@ -118,11 +127,13 @@
                 type="number"
                 id="price"
                 name="price"
+                value="<%= product.price %>"
                 class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 step="0.01"
                 required
               />
             </div>
+
             <fieldset class="border border-gray-300 rounded-lg p-4">
               <legend class="font-semibold text-gray-800">Kategori</legend>
               <div class="flex flex-col gap-3 mt-3">
@@ -130,43 +141,35 @@
                   for="category-nyheter"
                   class="flex items-center gap-2 text-gray-800"
                 >
-                  <input
-                    type="checkbox"
-                    id="category-nyheter"
-                    name="category"
-                    value="Nyheter"
-                    class="w-5 h-5 border-2 border-gray-800 rounded focus:ring-2 focus:ring-blue-500"
-                  />
-                  Nyheter
+                  <input type="checkbox" id="category-nyheter" name="category"
+                  value="Nyheter" class="w-5 h-5 border-2 border-gray-800
+                  rounded focus:ring-2 focus:ring-blue-500" <%= product.category
+                  === 'Nyheter'? 'checked' : '' %> /> Nyheter
                 </label>
-
                 <label
                   for="category-vinter"
                   class="flex items-center gap-2 text-gray-800"
                 >
-                  <input
-                    type="checkbox"
-                    id="category-vinter"
-                    name="category"
-                    value="Vinter"
-                    class="w-5 h-5 border-2 border-gray-800 rounded focus:ring-2 focus:ring-blue-500"
-                  />
-                  Vinter
+                  <input type="checkbox" id="category-vinter" name="category"
+                  value="Vinter" class="w-5 h-5 border-2 border-gray-800 rounded
+                  focus:ring-2 focus:ring-blue-500" <%= product.category ===
+                  'Vinter'? 'checked' : '' %> /> Vinter
                 </label>
               </div>
             </fieldset>
 
             <div>
               <label
-                for="registrationDate"
+                for="created_at"
                 class="block text-gray-800 font-semibold mb-2"
               >
                 Publiceringsdatum
               </label>
               <input
                 type="date"
-                id="registrationDate"
-                name="registrationDate"
+                id="created_at"
+                name="created_at"
+                value="<%= product.created_at %>"
                 class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
@@ -174,13 +177,13 @@
             <div class="flex justify-center gap-4">
               <button
                 type="submit"
-                class="flex items-center justify-center gap-2 px-6 py-3 w-auto h-[52px] bg-gray-800 text-white text-[14px] lg:text-[16px] font-roboto font-semibold rounded-[6px] focus:ring-2 focus:ring-gray-500 focus:outline-none"
+                class="flex items-center justify-center gap-2 px-6 py-3 w-auto h-[52px] rounded-[6px] bg-gray-800 text-white text-[14px] lg:text-[16px] font-roboto font-semibold rounded-[6px] focus:ring-2 focus:ring-gray-500 focus:outline-none"
               >
-                Lägg till produkt
+                Uppdatera produkt
               </button>
               <button
                 type="reset"
-                class="flex items-center gap-2 px-6 py-3 w-auto h-[52px] border-2 border-gray-800 rounded-[6px] text-gray-800 text-[14px] lg:text-[16px] font-roboto font-semibold focus:ring-2 focus:ring-gray-500 focus:outline-none"
+                class="flex items-center gap-2 px-6 py-3 w-auto h-[52px] rounded-[6px] border-2 border-gray-800 rounded-[6px] text-gray-800 text-[14px] lg:text-[16px] font-roboto font-semibold focus:ring-2 focus:ring-gray-500 focus:outline-none"
               >
                 Rensa
               </button>

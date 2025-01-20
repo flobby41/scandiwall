@@ -73,3 +73,4 @@ public/styles/output.css
 
 # Ignore DS_Store
 .DS_Store
+public/styles/output.css
