@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/db');
+const db = require('../../db/db');
 
 
 // Route pour afficher le panier de l'utilisateur
@@ -8,7 +8,7 @@ router.get('/shoppingCart', (req, res) => {
   res.render('shoppingCart');
 });
 
-router.get('/cartAPI', (req, res) => {
+router.get('/api/cart', (req, res) => {
   const sql = `
     SELECT 
       cart_items.id AS cart_id,
@@ -37,7 +37,7 @@ router.get('/cartAPI', (req, res) => {
 });
 
 // GET /admin/cart/:id : Récupère un produit spécifique
-router.get('/cartAPI/:id', (req, res) => {
+router.get('/api/cart/:id', (req, res) => {
   const productId = parseInt(req.params.id, 10);
   const sql = 'SELECT * FROM cart_items WHERE id = ?';
 
@@ -53,7 +53,7 @@ router.get('/cartAPI/:id', (req, res) => {
   });
 });
 // Add product to cart
-router.post('/cartAPI', (req, res) => {
+router.post('/api/cart', (req, res) => {
   const { product_id, user_id, quantity, price } = req.body;
 
   // Use default user_id if not provided
@@ -87,7 +87,7 @@ router.post('/cartAPI', (req, res) => {
 
 
 // DELETE /admin/cart/:id : Supprime un produit du panier
-router.delete('/cartAPI/:id', (req, res) => {
+router.delete('/api/cart/:id', (req, res) => {
   const productId = parseInt(req.params.id, 10);
   const sql = 'DELETE FROM cart_items WHERE id = ?';
 
@@ -101,7 +101,7 @@ router.delete('/cartAPI/:id', (req, res) => {
 });
 
 // PUT /admin/cart/:id : Met à jour la quantité d'un produit
-router.put('/cartAPI/:id', (req, res) => {
+router.put('/api/cart/:id', (req, res) => {
   const productId = parseInt(req.params.id, 10);
   const { change } = req.body;
 

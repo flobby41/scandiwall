@@ -7,59 +7,9 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
       rel="stylesheet"
     />
-
-    <style>
-
-.notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: black;
-      color: white;
-      padding: 15px;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-    }
-
-    .notification.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .notification a {
-      color: #00aaff;
-      text-decoration: none;
-    }
-
-    .notification a:hover {
-      text-decoration: underline;
-    }
-
-    .notification .close-notification {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    </style>
   </head>
-
   <body>
     <%- include('partials/_header') %>
-   
-    <div class="notification" id="notification">
-      <span id="notification-text"></span>
-      <a href="/shoppingCart" id="view-cart">View Cart</a>
-      <button class="close-notification" id="close-notification">×</button>
-    </div>
     <main
       class="flex flex-col gap-10 md:flex-row w-full py-16 px-8 md:px-20 max-w-screen-2xl mx-auto md:items-center"
     >
@@ -80,94 +30,14 @@
         <button id="add-to-cart-btn" class="add-to-cart-btn primary-button md:self-start"data-product-id="<%= product.id %>"
           data-product-price="<%= product.price %>" data-product-name="<%= product.name %>" >Lägg till i varukorgen</button>
       </div>
-
     </main>
 
     <%- include('partials/_footer') %>
-
-
-    <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const cartBadge = document.getElementById('cart-badge');
-  const cartAPI = 'http://localhost:3000/cartAPI';
-  const notification = document.getElementById('notification');
-  const notificationText = document.getElementById('notification-text');
-  const closeNotification = document.getElementById('close-notification');
-  const quantity = 1; // Default quantity
-  const userId = 1; // Temporary user ID for testing
-
-  // Charger le panier depuis le backend et synchroniser avec le cart-badge
-  const syncCartBadgeWithBackend = async () => {
-    try {
-      const response = await fetch(cartAPI);
-      if (!response.ok) {
-        throw new Error('Failed to fetch cart items from backend.');
-      }
-      const backendCart = await response.json();
-      const totalItems = backendCart.reduce((sum, item) => sum + item.quantity, 0);
-
-      // Mettre à jour le badge du panier
-      cartBadge.textContent = totalItems;
-      cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
-    } catch (error) {
-      console.error('Error syncing cart badge:', error);
-    }
-  };
-
-   // Charger initialement le badge
-   syncCartBadgeWithBackend();
-
-// Synchroniser à l'ouverture ou lors de la navigation arrière
-window.addEventListener("pageshow", syncCartBadgeWithBackend);
-  // Ajouter un produit au panier
-  const addToCart = async (productId, productName, price) => {
-    try {
-      const response = await fetch(cartAPI, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          product_id: productId,
-          user_id: userId,
-          quantity: quantity,
-          price: price,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add product to cart.');
-      }
-
-      // Synchroniser le badge après ajout
-      syncCartBadgeWithBackend();
-
-      // Afficher une notification
-      notificationText.textContent = `${productName} has been added to your cart!`;
-      notification.classList.add('show');
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 5000);
-
-      closeNotification.addEventListener('click', () => {
-        notification.classList.remove('show');
-      });
-    } catch (error) {
-      console.error('Error adding product to cart:', error);
-    }
-  };
-
-  // Gestionnaire pour le bouton "Add to Cart"
-  document.querySelector('.add-to-cart-btn').addEventListener('click', function () {
-    const productId = this.getAttribute('data-product-id');
-    const productName = this.getAttribute('data-product-name');
-    const price = parseFloat(this.getAttribute('data-product-price'));
-
-    addToCart(productId, productName, price);
-  });
-
-  // Charger et synchroniser le badge à l'initialisation
-  syncCartBadgeWithBackend();
-});
-
-    </script>
+    <div class="fixed top-5 right-5 bg-black text-white p-4 rounded shadow-lg flex items-center gap-2 z-[1000] opacity-0 invisible transition-opacity duration-300" id="notification">
+      <span id="notification-text"></span>
+      <a href="/shoppingCart" id="view-cart" class="text-blue-500 no-underline hover:underline">View Cart</a>
+      <button class="bg-none border-none text-white text-base cursor-pointer" id="close-notification">×</button>
+    </div>
+    <script src="/javascript/product-details.js"></script>
   </body>
 </html>

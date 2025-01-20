@@ -1,267 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/styles/output.css" rel="stylesheet" />
-
-  <title>Product List</title>
-  <style>
- 
-
-  
-
-    
-    
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: black;
-      color: white;
-      padding: 15px;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-    }
-
-    .notification.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .notification a {
-      color: #00aaff;
-      text-decoration: none;
-    }
-
-    .notification a:hover {
-      text-decoration: underline;
-    }
-
-    .notification .close-notification {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-
-
-  <%- include('partials/_header') %>
-
-  <main>
-    <!-- Hero  -->
-    <section class="hero">
-      <div class="img-section">
-        <img src="/images/poster.png" alt="" />
-      </div>
-
-      <div class="text-section">
-        <h1>Ge dina väggar en personlighet</h1>
-
-        <p>
-          Utforska vårt breda utbud av posters och prints som passar alla hem
-          och stilar. Oavsett om du söker moderna motiv, klassiska konstverk
-          eller inspirerande citat har vi något för dig. Kombinera dina
-          favoriter och skapa en unik tavelvägg som lyfter hela rummet.
-        </p>
-
-        <button class="primary-button lg:self-start">Utforska våra posters</button>
-      </div>
-    </section>
-
-  <div id="data-output"></div>
-  <div class="notification" id="notification">
-    <span id="notification-text"></span>
-    <a href="/shoppingCart" id="view-cart">View Cart</a>
-    <button class="close-notification" id="close-notification">×</button>
-  </div>
-
-<!-- -------------------------------------------SCRIPT --------------------------------- -->
-  <script>
-
-document.addEventListener("DOMContentLoaded", () => {
-  const cartBadge = document.getElementById("cart-badge");
-  const quantity = 1; // Default quantity
-  const userId = 1; // Temporary user ID for testing
-  const notification = document.getElementById("notification");
-  const notificationText = document.getElementById("notification-text");
-  const closeNotification = document.getElementById("close-notification");
-
-  let cart = [];
-  const cartAPI = "http://localhost:3000/cartAPI";
-
-  // Charger le panier depuis le backend et synchroniser avec localStorage
-  const syncCartWithBackend = async () => {
-    try {
-      const response = await fetch(cartAPI);
-      const backendCart = await response.json();
-      cart = backendCart.map((item) => ({
-        product_id: item.product_id,
-        name: item.name,
-        quantity: item.quantity,
-      }));
-      localStorage.setItem("cart", JSON.stringify(cart));
-      updateCartBadge();
-    } catch (error) {
-      console.error("Erreur lors de la synchronisation du panier :", error);
-    }
-  };
-
-  // Charger initialement le badge
-  syncCartWithBackend();
-
-  // Synchroniser à l'ouverture ou lors de la navigation arrière
-  window.addEventListener("pageshow", syncCartWithBackend);
-
-  // Sauvegarder le panier dans localStorage
-  const saveCartToLocalStorage = () => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
-
-  // Mettre à jour le badge du panier
-  const updateCartBadge = () => {
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartBadge.textContent = totalItems;
-    cartBadge.style.display = totalItems > 0 ? "flex" : "none";
-  };
-
-  // Afficher une notification
-  const showNotification = (productName) => {
-    notificationText.textContent = `${productName} has been added to your cart!`;
-    notification.classList.add("show");
-    setTimeout(() => {
-      notification.classList.remove("show");
-    }, 5000);
-  };
-
-  // Ajouter un produit au panier
-  const addToCart = (product) => {
-    const existingProduct = cart.find((item) => item.product_id === product.id);
-
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    } else {
-      cart.push({ product_id: product.id, name: product.name, quantity: 1 });
-    }
-
-    saveCartToLocalStorage();
-
-    fetch(cartAPI, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        product_id: product.id,
-        user_id: userId,
-        quantity: quantity,
-        price: product.price,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erreur HTTP " + response.status);
-        }
-        return response.json();
-      })
-      .then((data) => console.log("Produit ajouté au backend :", data))
-      .catch((err) => console.error("Erreur lors de l'ajout au backend :", err));
-
-    showNotification(product.name);
-    updateCartBadge();
-  };
-
-  // Récupération des produits
-  fetch("http://localhost:3000/api/products")
-    .then((resp) => resp.json())
-    .then((data) => {
-      const productCard = document.getElementById("data-output");
-
-      productCard.innerHTML = 
-       `
-                  <h2>Nyheter</h2>
-            <section class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] w-full mb-8 px-8 py-12 md:px-20 max-w-screen-2xl mx-auto">
-    
-        <% products.filter(product => product.category === 'Nyheter').forEach(product => { %>
-          <div class="produktkort flex flex-col items-center" data-id="<%= product.id %>">
-            <div class="productgrid-container relative w-full">
-              <a href="/products/<%= product.slugs %>" class="no-underline">
-                <img src="<%= product.image %>" alt="Produktbild på tshirt" class="productimage w-full h-auto mb-[12px]">
-              </a>
-              </div>
-              <div class="produktinfo w-full flex justify-between items-center text-black">
-                <h2 class="text-sm font-semibold mb-[12px]"><%= product.name %></h2>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6 add-to-cart-btn">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />             
-                </div>
-              <span class="text-sm block"><%= product.price %> SEK</span>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="/styles/output.css" rel="stylesheet" />
+      <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"/>
+      <title>Product List</title>
+    </head>
+    <body>
+      <%- include('partials/_header') %>
+      <main>
+        <!-- Hero  -->
+        <section class="hero">
+          <div class="img-section">
+            <img src="/images/poster.png" alt="" />
           </div>
-        <% }); %>
-      </section>
-
-      <h2>Vinter</h2>
-      <section class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] w-full mb-8 px-8 py-12 md:px-20 max-w-screen-2xl mx-auto">
-    
-        <% products.filter(product => product.category === 'Vinter').forEach(product => { %>
-          <div class="produktkort flex flex-col items-center" data-id="<%= product.id %>">
-            
-            <div class="productgrid-container relative w-full">
-              <a href="/products/<%= product.slugs %>"class="no-underline">
-                <img src="<%= product.image %>" alt="Produktbild på tshirt" class="productimage w-full h-auto mb-[12px]">
-                </a>
-              </div>
-              <div class="produktinfo w-full flex justify-between items-center text-black">
-                <h2 class="text-sm font-semibold mb-[12px]"><%= product.name %></h2>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6 add-to-cart-btn">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />                  
-              </div>
-              <span class="text-sm block"><%= product.price %> SEK</span>
+          <div class="text-section">
+            <h1>Ge dina väggar en personlighet</h1>
+            <p>
+              Utforska vårt breda utbud av posters och prints som passar alla hem
+              och stilar. Oavsett om du söker moderna motiv, klassiska konstverk
+              eller inspirerande citat har vi något för dig. Kombinera dina
+              favoriter och skapa en unik tavelvägg som lyfter hela rummet.
+            </p>
+            <button class="primary-button lg:self-start">Utforska våra posters</button>
           </div>
-        <% }); %>
+        </section>
+    </main>
+      <div id="data-output">
+        <!-- products -->
       </div>
-      </section>
-            `;
-      
-
-      productCard.addEventListener("click", (event) => {
-        if (event.target && event.target.classList.contains("add-to-cart-btn")) {
-          const productElement = event.target.closest(".produktkort");
-          if (productElement) {
-            const productName = productElement.querySelector("h2").textContent;
-            const productPrice = productElement.querySelector("span").textContent;
-
-            const product = {
-              id: productElement.dataset.id,
-              name: productName,
-              price: parseFloat(productPrice.replace("SEK", "").trim()),
-            };
-
-            addToCart(product);
-          }
-        }
-      });
-    })
-    .catch((error) => console.error("Erreur lors de la récupération des produits :", error));
-
-  // Charger le panier et mettre à jour l'affichage
-  syncCartWithBackend();
-
-  // Fermer la notification manuellement
-  closeNotification.addEventListener("click", () => {
-    notification.classList.remove("show");
-  });
-});
-
-  </script>
-</body>
-</html>
+      <!-- notification windows when you click on the basket 'Product.name has been added to your card!'-->
+      <div class="fixed top-5 right-5 bg-black text-white p-4 rounded shadow-lg flex items-center gap-2 z-[1000] opacity-0 invisible transition-opacity duration-300" id="notification">
+        <span id="notification-text"></span>
+        <a href="/shoppingCart" id="view-cart" class="text-blue-500 no-underline hover:underline">View Cart</a>
+        <button class="bg-none border-none text-white text-base cursor-pointer" id="close-notification">×</button>
+      </div>
+      <%- include('partials/_footer') %>
+     <script src="/javascript/index.js"></script>
+    </body>
+    </html>
