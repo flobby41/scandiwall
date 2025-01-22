@@ -134,13 +134,24 @@
 </div>
 
 <script>
+  // Hämtar element från DOM
   var modal = document.getElementById("searchModal");
   var btn = document.getElementById("searchBtn");
   var span = document.getElementById("closeBtn");
+  var searchInput = document.getElementById("searchInput");
 
   // Visa modal när användaren klickar på Sök-knappen
-  btn.onclick = function () {
-    modal.classList.remove("hidden");
+  btn.onclick = function (event) {
+    event.preventDefault(); // Förhindra omdirigering direkt
+    var query = searchInput.value;
+
+    if (query) {
+      // Om det finns ett sökord, omdirigera direkt till sökresultat
+      window.location.href = `/search?q=${query}`;
+    } else {
+      // Annars öppna modalen för att skriva en sökterm
+      modal.classList.remove("hidden");
+    }
   };
 
   // Stäng modal när användaren klickar på kryssknappen
@@ -155,32 +166,15 @@
     }
   };
 
-  // Hämta och visa sökresultat
-  document
-    .getElementById("searchInput")
-    .addEventListener("input", function (e) {
-      var query = e.target.value;
-
-      if (query.length >= 3) {
-        // Gör en förfrågan till backend med sökordet
-        fetch(`/search?q=${query}`)
-          .then((response) => response.json())
-          .then((data) => {
-            var resultsDiv = document.getElementById("searchResults");
-            resultsDiv.innerHTML = ""; // Rensa tidigare resultat
-
-            if (data.length === 0) {
-              resultsDiv.innerHTML = "<p>Inga resultat hittades.</p>";
-            } else {
-              data.forEach((product) => {
-                resultsDiv.innerHTML += `<div class="border-b py-2">${product.name}</div>`;
-              });
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+  // Vid "Enter"-tryck på sökfältet, omdirigera till sökresultat
+  searchInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      var query = searchInput.value;
+      if (query) {
+        // Se till att det finns ett sökord
+        window.location.href = `/search?q=${query}`; // Ompeka till search.ejs med sökterm
       }
-    });
+    }
+  });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>

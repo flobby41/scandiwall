@@ -79,7 +79,6 @@ router.get("/:category", (req, res) => {
   });
 });
 
-
 // GET för att filtrera produkter baserat på kategori
 router.get("/category/:category", (req, res) => {
   const category = req.params.category; // Hämta kategorin från URL
@@ -107,6 +106,30 @@ router.get("/category/:category", (req, res) => {
   });
 });
 
+// Lägg till denna route för att hantera sökningar
+router.get("/search", function (req, res, next) {
+  var searchTerm = req.query.q;
 
+  if (!searchTerm) {
+    return res.render("search", { title: "Sökresultat", products: [] });
+  }
+
+  // Sök i din databas för produkter som matchar sökterm
+  db.all(
+    "SELECT * FROM products WHERE name LIKE ?",
+    [`%${searchTerm}%`],
+    function (err, rows) {
+      if (err) {
+        return next(err);
+      }
+
+      // Skicka sökresultaten till söksidan
+      res.render("search", {
+        title: `Sökresultat för: ${searchTerm}`,
+        products: rows,
+      });
+    }
+  );
+});
 
 module.exports = router;
