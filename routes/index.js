@@ -79,4 +79,34 @@ router.get("/:category", (req, res) => {
   });
 });
 
+
+// GET för att filtrera produkter baserat på kategori
+router.get("/category/:category", (req, res) => {
+  const category = req.params.category; // Hämta kategorin från URL
+  const sql = `SELECT * FROM products WHERE category = ?`; // SQL-fråga för att hämta produkter från en specifik kategori
+  const params = [category];
+
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Database error");
+    }
+    if (rows.length === 0) {
+      return res.render("product-list", {
+        title: "Inga produkter hittades",
+        products: [],
+        category,
+      });
+    }
+    // Skicka produkterna till product-list.ejs
+    res.render("product-list", {
+      title: `Kategori: ${category}`,
+      products: rows,
+      category,
+    });
+  });
+});
+
+
+
 module.exports = router;

@@ -77,7 +77,9 @@
             <p>Inga produkter i denna kategori just nu.</p>
             <% } %>
           </div>
-          <button class="primary-button lg:self-center">Se fler</button>
+          <button class="primary-button lg:self-center">
+            <a href="/category/Nyheter">Se fler</a>
+          </button>
         </section>
 
         <section class="product-section">
@@ -119,7 +121,9 @@
             <p>Inga produkter i denna kategori just nu.</p>
             <% } %>
           </div>
-          <button class="primary-button lg:self-center">Se fler</button>
+          <button class="primary-button lg:self-center">
+            <a href="/category/Vinter">Se fler</a>
+          </button>
         </section>
 
         <section class="product-section">
@@ -156,14 +160,15 @@
                   <div class="name"><%= product.name %></div>
                   <div class="price"><%= product.price %> SEK</div>
                 </div>
-                
               </a>
             </div>
             <% }); %> <% } else { %>
             <p>Inga produkter i denna kategori just nu.</p>
             <% } %>
           </div>
-          <button class="primary-button lg:self-center">Se fler</button>
+          <button class="primary-button lg:self-center">
+            <a href="/category/Landskap">Se fler</a>
+          </button>
         </section>
       </div>
     </main>
