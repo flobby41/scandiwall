@@ -13,7 +13,7 @@ h1 {
 }
 
 h2 {
-  @apply text-xl font-extrabold text-center text-gray-800 uppercase mb-8;
+  @apply text-xl font-extrabold text-center text-gray-800 uppercase;
 }
 
 h3 {
@@ -43,14 +43,36 @@ p {
   }
 }
 
-.poster-section {
-  @apply items-center w-full h-auto mb-12 p-8;
-  > div {
-    @apply grid grid-cols-1 lg:grid-cols-4 gap-2 w-full;
-    > div {
-      @apply flex flex-col items-start;
-      span {
-        @apply text-lg text-gray-700 mb-4;
+.product-section {
+  @apply flex flex-col justify-center gap-8;
+
+  @apply text-black;
+  .product-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 w-full px-8 max-w-screen-2xl mx-auto;
+
+    .produkt-card {
+      @apply flex flex-col items-center;
+      a {
+        @apply no-underline;
+      }
+
+      .product-grid-container {
+        @apply relative w-full;
+
+        img {
+          @apply w-full h-auto rounded-lg;
+        }
+        .icon-container {
+          @apply absolute bottom-2 right-2;
+        }
+      }
+
+      .product-information {
+        @apply  text-gray-900 text-base mt-2;
+    
+        .price {
+          @apply text-gray-700 text-base mb-4;
+        }
       }
     }
   }

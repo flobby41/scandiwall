@@ -1,30 +1,22 @@
-<header class="bg-white flex items-center px-8 pt-4 justify-between max-w-screen-2xl mx-auto">
+<header
+  class="bg-white flex items-center px-8 pt-4 justify-between max-w-screen-2xl mx-auto"
+>
   <!-- Logotype -->
   <a href="/">
-    <img src="/images/logotype.png" alt="Logo" class="max-w-52"
-  /></a>
+    <img src="/images/logotype.png" alt="Logo" class="max-w-52" />
+  </a>
   <div class="flex flex-row">
     <!-- Menu -->
     <nav class="hidden lg:block">
       <div class="flex space-x-8 ml-auto">
-        <a
-          href="#"
-          class="uppercase font-extrabold hover:underline"
+        <a href="#" class="uppercase font-extrabold hover:underline"
           >Bästsäljare</a
         >
-        <a
-          href="#"
-          class="uppercase font-extrabold hover:underline"
-          >Nyheter</a
-        >
-        <a
-          href="#"
-          class="uppercase font-extrabold hover:underline"
+        <a href="#" class="uppercase font-extrabold hover:underline">Nyheter</a>
+        <a href="#" class="uppercase font-extrabold hover:underline"
           >Inspiration</a
         >
-        <a
-          href="#"
-          class="uppercase font-extrabold hover:underline"
+        <a href="#" class="uppercase font-extrabold hover:underline"
           >Alla kategorier</a
         >
       </div>
@@ -48,7 +40,8 @@
           />
         </svg>
       </button>
-      <button>
+
+      <button id="searchBtn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -118,9 +111,4 @@
   </div>
 </header>
 
-<script>
-  function toggleDropdown() {
-    const dropdownMenu = document.getElementById("dropdownMenu");
-    dropdownMenu.classList.toggle("hidden");
-  }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>
