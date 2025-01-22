@@ -101,9 +101,9 @@
             >Inspiration</a
           >
           <a
-            href="#"
+            href="/product-list"
             class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
-            >Alla kategorier</a
+            >Alla posters</a
           >
         </div>
       </div>
@@ -176,5 +176,11 @@
       }
     }
   });
+
+  // Toggle dropdown menu
+  function toggleDropdown() {
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    dropdownMenu.classList.toggle("hidden");
+  }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>

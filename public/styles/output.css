@@ -927,42 +927,78 @@ p {
 }
 
 .hero {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .hero {
-    padding-left: 7rem;
-    padding-right: 7rem;
+  > div {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
-}
-
-@media (min-width: 1024px) {
-  .hero {
-    flex-direction: row-reverse;
-    gap: 4rem;
-    padding-left: 10rem;
-    padding-right: 10rem;
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-    text-align: left;
+  > div {
+    margin-left: auto;
+    margin-right: auto;
   }
-}
-
-.hero {
+  > div {
+    display: flex;
+  }
+  > div {
+    max-width: 1536px;
+  }
+  > div {
+    flex-direction: column;
+  }
+  > div {
+    align-items: center;
+  }
+  > div {
+    justify-content: space-between;
+  }
+  > div {
+    gap: 2rem;
+  }
+  > div {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  > div {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  > div {
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    > div {
+      padding-left: 7rem;
+      padding-right: 7rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    > div {
+      flex-direction: row-reverse;
+    }
+  }
+  @media (min-width: 1024px) {
+    > div {
+      gap: 4rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    > div {
+      padding-left: 10rem;
+      padding-right: 10rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    > div {
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    > div {
+      text-align: left;
+    }
+  }
   .img-section {
     width: 33.333333%;
   }
@@ -998,6 +1034,8 @@ p {
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
   .product-grid {
@@ -1020,8 +1058,8 @@ p {
     gap: 0.5rem;
   }
   .product-grid {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 0px;
+    padding-right: 0px;
   }
   @media (min-width: 640px) {
     .product-grid {
