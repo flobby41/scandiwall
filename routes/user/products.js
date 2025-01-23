@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database("./db/skandiWall.db"); // Rätt filväg
@@ -17,6 +17,7 @@ router.get("/", function (req, res) {
       return res.status(500).send("Database error");
     }
 
+    // Filtrera produkter baserat på kategorier
     const nyheter = getRandomProducts(
       rows.filter((product) => product.category === "Nyheter")
     );
@@ -30,6 +31,7 @@ router.get("/", function (req, res) {
       rows.filter((product) => product.category === "Fritid")
     );
 
+    // Rendera startsidan med kategoriserade produkter
     res.render("index", {
       title: "SkandiWall",
       products: { nyheter, vinter, landskap, fritid },
@@ -37,9 +39,15 @@ router.get("/", function (req, res) {
   });
 });
 
-/* GET product details page. */
+/* GET product details page */
 router.get("/product-details/:id", function (req, res) {
   const productId = req.params.id;
+
+  // Kontrollera om id är giltigt
+  if (!productId) {
+    return res.status(400).send("Product ID is required");
+  }
+
   db.get("SELECT * FROM products WHERE id = ?", [productId], (err, row) => {
     if (err) {
       console.error(err);
@@ -48,7 +56,12 @@ router.get("/product-details/:id", function (req, res) {
     if (!row) {
       return res.status(404).send("Product not found");
     }
-    res.render("product-details", { title: "Product Details", product: row });
+
+    // Rendera produktsidan
+    res.render("product-details", {
+      title: "Product Details",
+      product: row,
+    });
   });
 });
 
@@ -59,6 +72,8 @@ router.get("/product-list", function (req, res) {
       console.error(err);
       return res.status(500).send("Database error");
     }
+
+    // Rendera listan med alla produkter
     res.render("product-list", {
       title: "Alla posters",
       products: rows,
@@ -70,6 +85,12 @@ router.get("/product-list", function (req, res) {
 /* GET products by category */
 router.get("/category/:category", function (req, res) {
   const category = req.params.category;
+
+  // Kontrollera om kategorin är giltig
+  if (!category) {
+    return res.status(400).send("Category is required");
+  }
+
   db.all(
     "SELECT * FROM products WHERE category = ?",
     [category],
@@ -78,6 +99,8 @@ router.get("/category/:category", function (req, res) {
         console.error(err);
         return res.status(500).send("Database error");
       }
+
+      // Rendera listan med produkter från vald kategori
       res.render("product-list", {
         title: `${category}`,
         products: rows,
@@ -90,8 +113,14 @@ router.get("/category/:category", function (req, res) {
 /* GET search results */
 router.get("/search", function (req, res) {
   const searchTerm = req.query.q;
+
+  // Kontrollera om sökterm är tom
   if (!searchTerm) {
-    return res.render("search", { title: "Sökresultat", products: [] });
+    return res.render("search", {
+      title: "Sökresultat",
+      products: [],
+      query: "",
+    });
   }
 
   db.all(
@@ -102,9 +131,12 @@ router.get("/search", function (req, res) {
         console.error(err);
         return res.status(500).send("Database error");
       }
+
+      // Rendera sökresultat
       res.render("search", {
         title: `Sökresultat för: ${searchTerm}`,
         products: rows,
+        query: searchTerm, // Skicka med söktermen för att använda i vyn
       });
     }
   );
