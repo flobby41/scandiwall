@@ -11,6 +11,8 @@ var usersRouter = require("./routes/user/users");
 var cartRouter = require("./routes/user/cart");
 var adminRouter = require("./routes/admin/admin");
 var productsApiRouter = require("./routes/api/products");
+var footerMenuRoutes = require("./routes/footerMenu"); // eller rätt sökväg
+
 
 var app = express();
 

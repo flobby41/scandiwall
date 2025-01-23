@@ -141,5 +141,8 @@ router.get("/search", function (req, res) {
     }
   );
 });
-
+// Definiera dina footer-rutter här
+router.get("/", function (req, res) {
+  res.send("Footer menu");
+});
 module.exports = router;
