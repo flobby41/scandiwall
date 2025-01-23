@@ -34,8 +34,9 @@ app.use("/cart", cartRouter);
 app.use("/admin", adminRouter);
 app.use("/api/products", productsApiRouter);
 
-// Catch 404 och vidarebefordra till error handler
-app.use(function (req, res, next) {
+app.use('/', footerMenuRoutes);
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
   next(createError(404));
 });
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link href="/styles/output.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <%- include('../partials/_header') %>
+
+    <main class="flex flex-col gap-10 md:flex-row w-full py-16 px-8 md:px-20 max-w-screen-2xl mx-auto md:items-center">
+      <div class="text-section">
+        <h1>Samamrbeten</h1>
+
+        <p class="mb-2">Vi på Skandiawall är alltid öppna för nya samarbeten och partnerskap. Vi tror på att bygga
+          långsiktiga relationer med både företag och kreativa talanger som delar vår passion för design och kvalitet.
+          Genom samarbeten vill vi kunna erbjuda ännu bättre produkter och upplevelser till våra kunder.</p>
+
+        <p><span class="font-bold">Vill du samarbeta med oss?</span>
+          Om du representerar ett företag eller en influencer och är intresserad av att samarbeta med Skandiawall, tveka
+          inte att höra av dig! Vi är alltid intresserade av att utforska nya möjligheter som kan bidra till att sprida
+          vår vision och våra produkter.</p>
+
+        <p><span class="font-bold">Exempel på samarbeten vi söker:</span></p>
+        <ul class="list-disc ml-6">
+          <li><span class="font-bold">Företagspartnerskap:</span> Vi söker företag som vill sälja våra posters i sina
+            butiker eller på sina plattformar.</li>
+          <li><span class="font-bold">Influencers och kreativa samarbeten:</span> Om du är en influencer eller en
+            designer och vill skapa exklusiva kollektioner eller marknadsföra våra produkter, ser vi gärna att vi kan
+            arbeta tillsammans.</li>
+          <li><span class="font-bold">Projekt och event:</span> Vi är också öppna för samarbeten vid event,
+            marknadsföringskampanjer och kreativa projekt.</li>
+        </ul>
+
+        <p><span class="font-bold">Hur går vi vidare?</span>
+          Om du är intresserad av att diskutera ett samarbete, vänligen kontakta oss via e-post på <a
+            href="mailto:samarbete@skandiwall.se" class="text-blue-600">samarbete@skandiwall.se</a>. Vi ser fram emot
+          att höra om dina idéer och hur vi tillsammans kan skapa något fantastiskt!</p>
+      </div>
+
+    </main>
+
+    <%- include('../partials/_footer') %>
+</body>
+
+</html>
