@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redigera produkt</title>
+    <link href="/styles/output.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="font-family: 'Roboto';">
+    <header>
+      <div
+        class="flex flex-col items-center sm:flex-row sm:justify-between lg:flex-row lg:justify-between lg:items-center gap-4 px-4 lg:px-16 py-4 w-full"
+      >
+        <div
+          class="flex flex-col items-center sm:items-start text-center sm:text-left"
+        >
+          <h1
+            class="font-jaro text-gray-800 text-[32px] leading-[32px] font-normal lg:text-[52px] lg:leading-[52px]"
+          >
+            Administration
+          </h1>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <article
+        class="flex flex-col items-center px-4 lg:px-16 py-6 w-full font-roboto"
+      >
+        <div class="w-full lg:max-w-4xl">
+          <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">
+            Redigera produkt med namn <%= product.name %> och ID: <%= product.id
+            %>
+          </h2>
+
+          <form
+            id="editProductForm"
+            method="POST"
+            class="bg-white shadow-md rounded-lg p-6 space-y-6"
+          >
+            <div>
+              <label for="name" class="block text-gray-800 font-semibold mb-2">
+                Namn <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value="<%= product.name %>"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                maxlength="25"
+                required
+                aria-describedby="nameHelp"
+              />
+              <p id="nameHelp" class="text-sm text-gray-500 mt-1">
+                Max 25 tecken.
+              </p>
+            </div>
+
+            <div>
+              <label
+                for="description"
+                class="block text-gray-800 font-semibold mb-2"
+              >
+                Beskrivning
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                rows="4"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                aria-describedby="descriptionHelp"
+              >
+<%= product.description %></textarea
+              >
+              <p id="descriptionHelp" class="text-sm text-gray-500 mt-1">
+                Kort beskrivning av produkten.
+              </p>
+            </div>
+
+            <div>
+              <label for="image" class="block text-gray-800 font-semibold mb-2">
+                Bild-URL <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="url"
+                id="image"
+                name="image"
+                value="<%= product.image %>"
+                placeholder="https://example.com/image.jpg"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                required
+                aria-describedby="imageHelp"
+              />
+              <p id="imageHelp" class="text-sm text-gray-500 mt-1">
+                Ange en giltig URL till produktbilden.
+              </p>
+            </div>
+
+            <div>
+              <label
+                for="stock_quantity"
+                class="block text-gray-800 font-semibold mb-2"
+              >
+                Kvantitet <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="stock_quantity"
+                name="stock_quantity"
+                value="<%= product.stock_quantity %>"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="price" class="block text-gray-800 font-semibold mb-2">
+                Pris <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value="<%= product.price %>"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                step="0.01"
+                required
+              />
+            </div>
+
+            <fieldset class="border border-gray-300 rounded-lg p-4">
+              <legend class="font-semibold text-gray-800">Kategori</legend>
+              <div class="flex flex-col gap-3 mt-3">
+                <label
+                  for="category-nyheter"
+                  class="flex items-center gap-2 text-gray-800"
+                >
+                  <input type="checkbox" id="category-nyheter" name="category"
+                  value="Nyheter" class="w-5 h-5 border-2 border-gray-800
+                  rounded focus:ring-2 focus:ring-blue-500" <%= product.category
+                  === 'Nyheter'? 'checked' : '' %> /> Nyheter
+                </label>
+                <label
+                  for="category-vinter"
+                  class="flex items-center gap-2 text-gray-800"
+                >
+                  <input type="checkbox" id="category-vinter" name="category"
+                  value="Vinter" class="w-5 h-5 border-2 border-gray-800 rounded
+                  focus:ring-2 focus:ring-blue-500" <%= product.category ===
+                  'Vinter'? 'checked' : '' %> /> Vinter
+                </label>
+              </div>
+            </fieldset>
+
+            <div>
+              <label
+                for="created_at"
+                class="block text-gray-800 font-semibold mb-2"
+              >
+                Publiceringsdatum
+              </label>
+              <input
+                type="date"
+                id="created_at"
+                name="created_at"
+                value="<%= product.created_at %>"
+                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+
+            <div class="flex justify-center gap-4">
+              <button
+                type="submit"
+                class="flex items-center justify-center gap-2 px-6 py-3 w-auto h-[52px] rounded-[6px] bg-gray-800 text-white text-[14px] lg:text-[16px] font-roboto font-semibold rounded-[6px] focus:ring-2 focus:ring-gray-500 focus:outline-none"
+              >
+                Uppdatera produkt
+              </button>
+              <button
+                type="reset"
+                class="flex items-center gap-2 px-6 py-3 w-auto h-[52px] rounded-[6px] border-2 border-gray-800 rounded-[6px] text-gray-800 text-[14px] lg:text-[16px] font-roboto font-semibold focus:ring-2 focus:ring-gray-500 focus:outline-none"
+              >
+                Rensa
+              </button>
+            </div>
+          </form>
+        </div>
+      </article>
+    </main>
+    <%- include('../partials/_footer') %>
+  </body>
+</html>

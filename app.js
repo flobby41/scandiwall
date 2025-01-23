@@ -5,8 +5,13 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var sqlite3 = require("sqlite3").verbose(); // Importera sqlite3
 
+// Importera routers
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var productsRouter = require("./routes/user/products");
+var cartRouter = require("./routes/user/cart");
+var adminRouter = require("./routes/admin/admin");
+var productsApiRouter = require("./routes/api/products");
 
 var app = express();
 
@@ -23,11 +28,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Routes
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/", productsRouter);
+app.use("/", cartRouter);
+app.use("/admin", adminRouter);
+app.use("/api/products", productsApiRouter);
+
 // Hantera sökförfrågningar
 app.get("/search", function (req, res, next) {
   var query = req.query.q; // Hämtar sökfrågan från URL
 
-  // Om sökordet inte är tomt
   if (query) {
     // Söka i databasen efter produkter som matchar sökordet
     var sql = "SELECT * FROM products WHERE name LIKE ? OR description LIKE ?";
@@ -44,10 +56,6 @@ app.get("/search", function (req, res, next) {
     res.render("search", { query, products: [] });
   }
 });
-
-// Använd vanliga routers
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
 
 // Catch 404 och vidarebefordra till error handler
 app.use(function (req, res, next) {

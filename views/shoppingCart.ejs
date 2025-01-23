@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px auto;
+      max-width: 1200px;
+      gap: 20px;
+    }
+    .shopping-bag {
+      flex: 2;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .shopping-bag h2 {
+      margin-bottom: 20px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .cart-item img {
+      width: 80px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .item-details {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .item-details h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .item-details p {
+      margin: 5px 0;
+      color: #555;
+      font-size: 14px;
+    }
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .quantity-controls button {
+      background-color: #ddd;
+      border: none;
+      padding: 5px 10px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .quantity-controls button:hover {
+      background-color: #bbb;
+    }
+    .delete-btn {
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .delete-btn:hover {
+      color: red;
+    }
+    .order-summary {
+      flex: 1;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .order-summary h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .discount-code {
+      margin-top: 20px;
+    }
+    .discount-code input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .checkout-btn {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      background: #ff00ff;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #ff00ff;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .checkout-btn:hover {
+      box-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Shopping Bag Section -->
+  <div class="shopping-bag">
+    <h2>Shopping Bag</h2>
+    <div id="cart-items">
+      <!-- Cart Items Dynamically Generated Here -->
+    </div>
+  </div>
+
+  <!-- Order Summary Section -->
+  <div class="order-summary">
+    <h3>Order Summary</h3>
+    <div class="summary-line">
+      <span>Subtotal</span>
+      <span id="subtotal">$0</span>
+    </div>
+    <div class="discount-code">
+      <label for="discount">Apply Discount Code</label>
+      <input type="text" id="discount" placeholder="Enter code">
+    </div>
+    <a href="#" class="checkout-btn">Confirm order</a>
+  </div>
+</div>
+<script src="/javascript/shoppingCart.js"></script>
+
+</body>
+</html>
