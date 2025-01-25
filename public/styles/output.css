@@ -612,6 +612,10 @@ video {
   inset: 0px;
 }
 
+.right-0 {
+  right: 0px;
+}
+
 .right-2 {
   right: 0.5rem;
 }
@@ -642,6 +646,10 @@ video {
 
 .top-\[-5px\] {
   top: -5px;
+}
+
+.top-\[60px\] {
+  top: 60px;
 }
 
 .z-50 {
@@ -740,6 +748,10 @@ video {
 
 .w-6 {
   width: 1.5rem;
+}
+
+.w-60 {
+  width: 15rem;
 }
 
 .w-auto {
@@ -872,6 +884,10 @@ video {
 
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
 }
 
 .border {

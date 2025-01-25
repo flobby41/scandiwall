@@ -34,7 +34,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/cart", cartRouter);
 app.use("/admin", adminRouter);
-app.use("/api/products", productsApiRouter);
+app.use("/api", productsApiRouter); 
+// app.use("/api/products", productsApiRouter);
 
 app.use('/', footerMenuRoutes);
 // catch 404 and forward to error handler

@@ -4,7 +4,7 @@ var router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/skandiWall.db');
 
-router.get('/', (req, res) => {
+router.get('/products', (req, res) => {
 
   db.all(
     `SELECT 
@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
 
     (err, rows) => {
       if (err) {
+        console.error("Database query error:", err.message); // Log error details
         res.status(500).json({ error: 'Kunde inte hämta produkterna' });
       } else {
         res.json(rows);
@@ -30,8 +31,14 @@ router.get('/', (req, res) => {
   );
 });
 
+// router.get('/api/products', function(req, res, next) {
+//   db.all("SELECT * FROM products", (err, rows) => {
+//     if (err) return next(err);
+//     res.json(rows);
+//   });
+// });
 
-router.delete('/:id', (req, res) => {
+router.delete('/products/:id', (req, res) => {
   const { id } = req.params; 
 
   db.run('DELETE FROM products WHERE id = ?', [id], function (err) {

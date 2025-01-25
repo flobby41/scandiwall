@@ -23,8 +23,10 @@
             Administration
           </h1>
         </div>
-        <div class="flex flex-row items-center gap-4">
+        <div class="flex flex-row items-center gap-4 relative">
+          <!-- Filter Button -->
           <button
+            id="filter-button"
             class="flex items-center gap-2 px-6 py-3 w-auto h-[52px] border-2 border-gray-800 rounded-[6px] text-gray-800 text-[14px] lg:text-[16px] font-roboto font-semibold focus:ring-2 focus:ring-gray-500 focus:outline-none"
           >
             <svg
@@ -41,8 +43,64 @@
                 d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
               />
             </svg>
-            <a href="#"> Filtrera produkter </a>
+            <span>Filtrera produkter</span>
           </button>
+
+          <!-- Filtermeny-->
+          <div
+            id="filter-dropdown"
+            class="absolute right-0 top-[60px] hidden bg-white shadow-md border border-gray-300 rounded-md w-60 z-50"
+          >
+            <ul class="flex flex-col p-4 gap-2">
+              <li>
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="category-filter"
+                    value="all"
+                    class="form-radio"
+                    checked
+                  />
+                  Alla
+                </label>
+              </li>
+              <li>
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="category-filter"
+                    value="category-1"
+                    class="form-radio"
+                  />
+                  Kategori 1
+                </label>
+              </li>
+              <li>
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="category-filter"
+                    value="category-2"
+                    class="form-radio"
+                  />
+                  Kategori 2
+                </label>
+              </li>
+              <li>
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="category-filter"
+                    value="category-3"
+                    class="form-radio"
+                  />
+                  Kategori 3
+                </label>
+              </li>
+            </ul>
+          </div>
+          <!-- Slut på filtermeny -->
+
           <button
             class="flex items-center justify-center gap-2 px-6 py-3 w-auto h-[52px] bg-gray-800 text-white text-[14px] lg:text-[16px] font-roboto font-semibold rounded-[6px] focus:ring-2 focus:ring-gray-500 focus:outline-none"
           >
