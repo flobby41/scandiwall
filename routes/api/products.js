@@ -31,12 +31,34 @@ router.get('/products', (req, res) => {
   );
 });
 
-// router.get('/api/products', function(req, res, next) {
-//   db.all("SELECT * FROM products", (err, rows) => {
-//     if (err) return next(err);
-//     res.json(rows);
-//   });
-// });
+router.get('/cart', (req, res) => {
+  const sql = `
+    SELECT 
+      cart_items.id AS cart_id,
+      cart_items.quantity,
+      cart_items.product_id,
+      cart_items.price,
+      cart_items.user_id,
+      products.name,
+      products.image
+    FROM 
+      cart_items
+    INNER JOIN 
+      products
+    ON 
+      cart_items.product_id = products.id;
+  `;
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des produits :', err);
+      return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
+
+    res.json(rows);
+  });
+});
+
 
 router.delete('/products/:id', (req, res) => {
   const { id } = req.params; 
