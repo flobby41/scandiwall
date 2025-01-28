@@ -31,12 +31,6 @@ router.get('/products', (req, res) => {
   );
 });
 
-// router.get('/api/products', function(req, res, next) {
-//   db.all("SELECT * FROM products", (err, rows) => {
-//     if (err) return next(err);
-//     res.json(rows);
-//   });
-// });
 
 router.delete('/products/:id', (req, res) => {
   const { id } = req.params; 

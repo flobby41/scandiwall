@@ -9,7 +9,8 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
       rel="stylesheet"
     />
-    <script src="/javascript/main.js"></script>
+    <script src="/javascript/admin.js"></script>
+    <script src="/javascript/filter-products.js"></script>
   </head>
   <body class="font-family: 'Roboto';">
     <header>
@@ -23,8 +24,9 @@
             Administration
           </h1>
         </div>
+
+        <!--  FILTER BUTTON -->
         <div class="flex flex-row items-center gap-4 relative">
-          <!-- Filter Button -->
           <button
             id="filter-button"
             class="flex items-center gap-2 px-6 py-3 w-auto h-[52px] border-2 border-gray-800 rounded-[6px] text-gray-800 text-[14px] lg:text-[16px] font-roboto font-semibold focus:ring-2 focus:ring-gray-500 focus:outline-none"
@@ -45,6 +47,7 @@
             </svg>
             <span>Filtrera produkter</span>
           </button>
+          <!--  FILTER BUTTON END -->
 
           <!-- Filtermeny-->
           <div
@@ -134,7 +137,7 @@
               Produkter
             </caption>
             <thead>
-              <tr
+              <!-- <tr
                 class="bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <th
@@ -176,7 +179,155 @@
                   class="border-b border-r border-gray-900 px-3 py-2 font-roboto text-center"
                 ></th>
               </tr>
+            </thead> -->
+              <thead>
+                <tr class="bg-gray-800 text-white">
+                  <th
+                    data-sort="numeric"
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto cursor-pointer hover:bg-gray-700 transition-colors"
+                  >
+                    <span class="inline-block items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-3"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    </span>
+                    Id
+                  </th>
+                  <th
+                    data-sort="text"
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto cursor-pointer hover:bg-gray-700 transition-colors"
+                  >
+                    <span class="inline-block items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-3"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    </span>
+                    Namn
+                  </th>
+                  <th
+                    data-sort="numeric"
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto cursor-pointer hover:bg-gray-700 transition-colors"
+                  >
+                    <span class="inline-block items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-3"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    </span>
+                    Pris
+                  </th>
+                  <th
+                    data-sort="numeric"
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto cursor-pointer hover:bg-gray-700 transition-colors"
+                  >
+                    <span class="inline-block items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-3"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    </span>
+                    Kvantitet
+                  </th>
+                  <th
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto"
+                  >
+                    Bild
+                  </th>
+                  <th
+                    data-sort="text"
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto cursor-pointer hover:bg-gray-700 transition-colors"
+                  >
+                    <span class="inline-block items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-3"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    </span>
+                    Kategori
+                  </th>
+                  <th
+                    data-sort="numeric"
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto cursor-pointer hover:bg-gray-700 transition-colors"
+                  >
+                    <span class="inline-block items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-3"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    </span>
+                    Registreringsdatum
+                  </th>
+                  <th
+                    class="border-b border-r border-gray-900 px-3 py-2 font-roboto text-center"
+                  >
+                    Åtgärder
+                  </th>
+                </tr>
+              </thead>
             </thead>
+
             <tbody id="product-table-body"></tbody>
           </table>
         </div>
