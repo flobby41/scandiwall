@@ -111,7 +111,7 @@ function renderCart(cart) {
     const cartItem = document.createElement('div');
     cartItem.classList.add('cart-item');
     cartItem.innerHTML = `
-      <img src="${item.image}" alt="${item.name}">
+      <img src="/images/poster-images/${item.image}" alt="${item.name}">
       <div class="item-details">
         <h3>${item.name}</h3>
         <p>${item.price}:- / pièce</p>

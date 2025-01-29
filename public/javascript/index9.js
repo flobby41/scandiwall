@@ -59,50 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const generateProductHTML = (products, category) =>
     `
-
-  <section class="product-section">
     <h2>${category}</h2>
-    <div class="product-grid">
+    <section class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] w-full mb-8 px-8 py-12 md:px-20 max-w-screen-2xl mx-auto">
       ${products
         .filter(product => product.category === category)
         .map(
           product => `
-          <div class="produkt-card" data-id="${product.id}">
-            <div class="product-grid-container">
-              <a href="/products/${product.slugs}">
-                <img src="/images/poster-images/${product.image}" alt=" ${product.name} produktbild">
+          <div class="produktkort flex flex-col items-center" data-id="${product.id}">
+            <div class="productgrid-container relative w-full">
+              <a href="/products/${product.slugs}" class="no-underline">
+                <img src="${product.image}" alt="Produktbild på ${product.name}" class="productimage w-full h-auto mb-[12px]">
               </a>
-              <div class="icon-container">
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="add-to-cart-btn size-6 stroke-white"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                  />
-                </svg>
-              </div>
             </div>
-            <h2 class="product-information">
-              ${product.name}
-                <span class="text-sm">${product.price} SEK</span>
-              </div>
-            </h2>
-
+            <div class="produktinfo w-full flex justify-between items-center text-black">
+              <h2 class="text-sm font-semibold mb-[12px]">${product.name}</h2>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6 add-to-cart-btn">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
+            </div>
+            <span class="text-sm block">${product.price} SEK</span>
+          </div>
         `
         )
         .join("")}
-        </div>
-        <button class="primary-button lg:self-center">
-          <a href="/category/Nyheter">Se fler</a>
-        </button>
     </section>
   `;
 
@@ -111,11 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       const productCard = document.getElementById("data-output");
       productCard.innerHTML =
-        generateProductHTML(data, "Nyheter") + generateProductHTML(data, "Vinter")+ generateProductHTML(data, "Landskap");
+        generateProductHTML(data, "Nyheter") + generateProductHTML(data, "Vinter");
 
       productCard.addEventListener("click", e => {
         if (e.target && e.target.classList.contains("add-to-cart-btn")) {
-          const el = e.target.closest(".produkt-card"),
+          const el = e.target.closest(".produktkort"),
             product = {
               id: el.dataset.id,
               name: el.querySelector("h2").textContent,
