@@ -3,7 +3,7 @@ var router = express.Router();
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/skandiWall.db');
-const generateSlug = require('../../db/utilities/generate-slug');
+const generateSlug = require("../../db/utilities/generate-slug");
 
 router.get('/', function(req, res, next) {
     res.render('admin/index', { title: 'Administration' });

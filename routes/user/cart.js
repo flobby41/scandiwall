@@ -5,10 +5,36 @@ const db = require('../../db/db');
 
 // Route pour afficher le panier de l'utilisateur
 router.get('/shoppingCart', (req, res) => {
-  res.render('shoppingCart');
+  res.render('shoppingCart', { userId: req.user?.id || null});
 });
 
+router.get('/api/cart', (req, res) => {
+  const sql = `
+    SELECT 
+      cart_items.id AS cart_id,
+      cart_items.quantity,
+      cart_items.product_id,
+      cart_items.price,
+      cart_items.user_id,
+      products.name,
+      products.image
+    FROM 
+      cart_items
+    INNER JOIN 
+      products
+    ON 
+      cart_items.product_id = products.id;
+  `;
 
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des produits :', err);
+      return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
+
+    res.json(rows);
+  });
+});
 
 // GET /admin/cart/:id : Récupère un produit spécifique
 router.get('/api/cart/:id', (req, res) => {

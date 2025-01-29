@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de Commande</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }           
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .order-details {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+        .btn-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-home:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tack för ditt köp!</h1>
+    <p>Din beställning har bekräftats. Du kommer snart att få en bekräftelse via e-post.</p>
+    
+    <div class="order-details">
+        <h2>Beställningsdetaljer</h2>
+        <p><strong>Beställningsnummer:</strong> <span id="orderId"></span></p>
+        <p><strong>Totalt belopp:</strong> SEK<span id="totalPrice"></span></p>
+        <p><strong>Beställningsdatum:</strong> <span id="orderDate"></span></p>
+        <p><strong>Leveransadress:</strong></p>
+        <p id="deliveryAddress"></p>
+    </div>
+    
+    <a href="/" class="btn-home">Tillbaka till startsidan</a>
+</div>
+
+    <script>
+        const userId = "<%= userId %>"; // Transmettez l'ID utilisateur depuis le backend
+if (userId) {
+  console.log(`Utilisateur connecté : ID ${userId}`);
+} else {
+  console.log('Aucun utilisateur connecté.');
+}
+
+        // Exemple de données à récupérer dynamiquement
+        window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search); // Accède à la chaîne de requête
+    const orderId = urlParams.get('orderId'); // Récupère le paramètre `orderId`
+
+    if (!orderId) {
+        document.body.innerHTML = '<p>Commande introuvable.</p>';
+        return;
+    }
+
+    // Appeler l'API pour récupérer les détails de la commande
+    fetch(`/api/orders/${orderId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des détails de la commande.');
+            }
+            return response.json();
+        })
+        .then(order => {
+            // Remplir les informations de la commande dans la page
+            document.getElementById('orderId').textContent = order.id;
+            document.getElementById('totalPrice').textContent = order.total_price.toFixed(2);
+            document.getElementById('orderDate').textContent = new Date(order.created_at).toLocaleDateString('fr-FR');
+            document.getElementById('deliveryAddress').textContent = order.delivery_address || 'Adresse non disponible';
+        })
+        .catch(error => {
+            console.error(error);
+            document.body.innerHTML = '<p>Erreur lors de l’affichage des informations de la commande.</p>';
+        });
+});
+    </script>
+</body>
+</html>

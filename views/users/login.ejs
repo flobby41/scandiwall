@@ -1,0 +1,21 @@
+<h1>Login</h1>
+<% if (messages.error) { %>
+  <div style="color: red;"><%= messages.error %></div>
+<% } %>
+<% if (messages && messages.expired) { %>
+  <div class="alert alert-warning"><%= messages.expired %></div>
+<% } %>
+<form action="/profile/login" method="POST">
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email" required>
+  <label for="password">Password:</label>
+  <input type="password" name="password" id="password" required>
+  <button type="submit">Login</button>
+<br><br>
+  <a href="/profile/register">register</a>
+</form>
+<script>
+
+  
+  </script>
+  
