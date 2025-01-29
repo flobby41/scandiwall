@@ -32,6 +32,10 @@ p {
   @apply bg-gray-800 hover:bg-gray-950 rounded-md py-3 px-6 font-roboto font-semibold text-base text-white;
 }
 
+.secondary-button {
+  @apply bg-white text-gray-800 border-2 border-gray-800 hover:bg-gray-800 hover:text-white rounded-md py-3 px-6 font-roboto font-semibold text-base;
+}
+
 .input-field {
   @apply w-full p-2 border border-gray-300 rounded;
 }
