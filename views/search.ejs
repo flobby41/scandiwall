@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <title>Sökresultat för "<%= query %>"</title>
+    <link href="/styles/output.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('partials/_header') %>
+
+    <main
+      class="flex flex-col items-center gap-10 w-full py-16 px-8 md:px-20 max-w-screen-2xl mx-auto md:items-center"
+    >
+      <% if (products.length > 0) { %>
+      <h1>Bingo! Vi hittade detta när du sökte på "<%= query %>"</h1>
+      <section class="product-section">
+        <div class="product-grid">
+          <% products.forEach(function(product) { %>
+          <div class="produkt-card">
+            <a href="/product-details/<%= product.id %>">
+              <img
+                src="/images/poster-images/<%= product.image %>"
+                alt="<%= product.name %> produktbild"
+                class="rounded-lg"
+              />
+              <div class="product-information">
+                <h2 class="text-base text-left font-normal normal-case">
+                  <%= product.name %>
+                </h2>
+                <p class="text-gray-600"><%= product.price %> SEK</p>
+              </div>
+            </a>
+          </div>
+          <% }); %>
+        </div>
+      </section>
+      <% } else { %>
+      <h1 class="py-12 text-center lg:py-24">Det verkar som om vi inte har det du söker efter</h1>
+      <p class="text-lg text-gray-600 max-w-96 text-center lg:mb-24">Du sökte på <strong>"<%= query %>"</strong> och vi hittade inget. Men du kan ju prova söka efter något annat. </p>
+      <% } %>
+    </main>
+    <%- include('partials/_footer') %>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <title><%= title %></title>
+    <link href="/styles/output.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('partials/_header') %>
+
+    <main
+      class="flex flex-col gap-10 w-full py-16 px-8 md:px-20 max-w-screen-2xl mx-auto md:items-center"
+    >
+      <h1><%= title %></h1>
+      <section class="product-section">
+        <div class="product-grid">
+          <% if (products.length > 0) { %> <% products.forEach((product) => { %>
+          <div class="produkt-card">
+            <a href="/products/<%= product.slugs %>">
+              <img
+                src="<%= product.image %>"
+                alt="<%= product.name %> produktbild"
+                class="rounded-lg"
+              />
+              <div class="product-information">
+                <h2 class="text-base text-left font-normal normal-case">
+                  <%= product.name %>
+                </h2>
+                <p class="text-gray-600"><%= product.price %> SEK</p>
+              </div>
+            </a>
+          </div>
+          <% }); %> <% } else { %>
+          <p class="text-center">Inga produkter hittades i denna kategori.</p>
+          <% } %>
+        </div>
+      </section>
+    </main>
+
+    <%- include('partials/_footer') %>
+  </body>
+</html>

@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order Page</title>
+  <link href="/styles/output.css" rel="stylesheet" />
+      <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"/>
   <link rel="stylesheet">
   <style>
     body {
@@ -76,7 +80,7 @@ input[type="tel"] {
   border-radius: 4px;
 }
 
-button {
+.confirmBtn {
   background-color: black;
   color: white;
   padding: 10px 20px;
@@ -85,7 +89,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.confirmBtn:hover {
   background-color: #333;
 }
 
@@ -95,6 +99,7 @@ button:hover {
   </style>
 </head>
 <body>
+  <%- include('partials/_header') %>
 
 <div class="order-container">
 
@@ -148,7 +153,7 @@ button:hover {
         </label>
       </div>
 
-      <button id="confirmOrderButton" type="submit">Bekräfta beställning</button>
+      <button id="confirmOrderButton" class="confirmBtn" type="submit">Bekräfta beställning</button>
     </form>
   </div>
 
@@ -163,6 +168,7 @@ button:hover {
     </div>
   </div>
 </div>
+<%- include('partials/_footer') %>
 
 <script src="/javascript/orders.js"></script>
 

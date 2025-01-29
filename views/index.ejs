@@ -8,22 +8,28 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
       rel="stylesheet"/>
       <title>Product List</title>
+      <style>
+
+      </style>
     </head>
     <body>
       <%- include('partials/_header') %>
       <main>
-        <h1>Hej <%= firstname %> !</h1>
-
-        <% if (firstname !== 'gäst') { %>
-          <a href="/profile/logout" style="padding: 10px; background-color: red; color: white; text-decoration: none; border-radius: 5px;">Log out</a>
-        <% } else { %>
-          <a href="/profile/login" style="padding: 10px; background-color: green; color: white; text-decoration: none; border-radius: 5px;">Log in</a>
-        <% } %>
+     
 
         <!-- Hero  -->
         <section class="hero">
-          <div class="img-section">
-            <img src="/images/poster.png" alt="" />
+          <br><br>
+          <h1>Hej <%= firstname %> !</h1>
+  
+          <% if (firstname !== 'gäst') { %>
+            <a href="/profile/logout" style="padding: 10px; background-color: red; color: white; text-decoration: none; border-radius: 5px;">Log out</a>
+          <% } else { %>
+            <br><a href="/profile/login" style="padding: 10px; background-color: green; color: white; text-decoration: none; border-radius: 5px;">Log in</a>
+          <% } %>
+          <div>
+            <div class="img-section">
+            <img src="/images/poster.png" alt="Hero image" />
           </div>
           <div class="text-section">
             <h1>Ge dina väggar en personlighet</h1>
@@ -33,15 +39,15 @@
               eller inspirerande citat har vi något för dig. Kombinera dina
               favoriter och skapa en unik tavelvägg som lyfter hela rummet.
             </p>
-            <button class="primary-button lg:self-start">Utforska våra posters</button>
+            <button class="primary-button lg:self-start">Utforska våra posters
+            </button>
           </div>
-        </section>
-    </main>
+        </div>
+      </section>
 
-    <div class="flex flex-col gap-16 py-10">
-      <div id="data-output">
+
+    <div id="data-output" class="flex flex-col gap-16 py-10">
         <!-- products -->
-      </div>
     </div>
       <!-- notification windows when you click on the basket 'Product.name has been added to your card!'-->
       <div class="fixed top-5 right-5 bg-black text-white p-4 rounded shadow-lg flex items-center gap-2 z-[1000] opacity-0 invisible transition-opacity duration-300" id="notification">
@@ -49,6 +55,8 @@
         <a href="/shoppingCart" id="view-cart" class="text-blue-500 no-underline hover:underline">View Cart</a>
         <button class="bg-none border-none text-white text-base cursor-pointer" id="close-notification">×</button>
       </div>
+    </main>
+
       <%- include('partials/_footer') %>
      <script src="/javascript/index.js"></script>
      <script>

@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const addToCart = product => {
     const existingProduct = cart.find(item => item.product_id === product.id);
     existingProduct ? existingProduct.quantity++ : cart.push({ product_id: product.id, name: product.name, quantity: 1 });
+    console.log('cart ', cart  )
+
     localStorage.setItem("cart", JSON.stringify(cart));
     fetch(cartAPI, {
       method: "POST",
@@ -70,7 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="produkt-card" data-id="${product.id}">
             <div class="product-grid-container">
               <a href="/products/${product.slugs}">
-                <img src="/images/poster-images/${product.image}" alt=" ${product.name} produktbild">
+                <img 
+                src="${product.image}"
+                alt=" ${product.name} produktbild"
+                class="rounded-lg"
+                />
               </a>
               <div class="icon-container">
 
@@ -90,20 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 </svg>
               </div>
             </div>
-            <h2 class="product-information">
-              ${product.name}
-                <span class="text-sm">${product.price} SEK</span>
-              </div>
-            </h2>
-
+            <div class="product-information text-left">
+             <h2 class="name text-base text-left font-normal normal-case"> 
+             ${product.name}
+              </h2>
+            <p class="price text-gray-600">${product.price} SEK
+            </p>
+            </div>
+            </div>
+            
+          
         `
         )
         .join("")}
         </div>
         <button class="primary-button lg:self-center">
-          <a href="/category/Nyheter">Se fler</a>
+          <a href="/category/${category}">Se fler</a>
         </button>
     </section>
+
   `;
 
   fetch("/api/products")
@@ -118,8 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const el = e.target.closest(".produkt-card"),
             product = {
               id: el.dataset.id,
-              name: el.querySelector("h2").textContent,
-              price: parseFloat(el.querySelector("span").textContent.replace("SEK", "").trim()),
+              name: el.querySelector(".name").textContent.trim(),
+              price: parseFloat(el.querySelector(".price").textContent.replace("SEK", "").trim()),
             };
           addToCart(product);
         }
