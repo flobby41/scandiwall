@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const res = await fetch(cartAPI),
         backendCart = await res.json();
-      cart = backendCart.map(item => ({
+      cart = backendCart.map((item) => ({
         product_id: item.product_id,
         name: item.name,
         quantity: item.quantity,
@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Erreur sync:", e);
     }
   };
-       // Synchroniser à l'ouverture ou lors de la navigation arrière
-       window.addEventListener("pageshow", syncCartWithBackend);
+  // Synchroniser à l'ouverture ou lors de la navigation arrière
+  window.addEventListener("pageshow", syncCartWithBackend);
 
   const updateCartBadge = () => {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
     cartBadge.style.display = totalItems > 0 ? "flex" : "none";
   };
 
-  const showNotification = productName => {
+  const showNotification = (productName) => {
     notificationText.textContent = `${productName} has been added to your cart!`;
-  
+
     // Ajoute les classes pour afficher la notification
     notification.classList.remove("opacity-0", "invisible");
     notification.classList.add("opacity-100", "visible");
-  
+
     // Masque la notification après 5 secondes
     setTimeout(() => {
       notification.classList.remove("opacity-100", "visible");
@@ -44,17 +44,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000);
   };
 
-  const addToCart = product => {
-    const existingProduct = cart.find(item => item.product_id === product.id);
-    existingProduct ? existingProduct.quantity++ : cart.push({ product_id: product.id, name: product.name, quantity: 1 });
-    console.log('cart ', cart  )
+  const addToCart = (product) => {
+    const existingProduct = cart.find((item) => item.product_id === product.id);
+    existingProduct
+      ? existingProduct.quantity++
+      : cart.push({ product_id: product.id, name: product.name, quantity: 1 });
+    console.log("cart ", cart);
 
     localStorage.setItem("cart", JSON.stringify(cart));
     fetch(cartAPI, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product_id: product.id, user_id: userId, quantity: 1, price: product.price }),
-    }).catch(err => console.error("Erreur ajout backend:", err));
+      body: JSON.stringify({
+        product_id: product.id,
+        user_id: userId,
+        quantity: 1,
+        price: product.price,
+      }),
+    }).catch((err) => console.error("Erreur ajout backend:", err));
     showNotification(product.name);
     updateCartBadge();
   };
@@ -66,9 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
     <h2>${category}</h2>
     <div class="product-grid">
       ${products
-        .filter(product => product.category === category)
+        .filter((product) => product.category === category)
         .map(
-          product => `
+          (product) => `
           <div class="produkt-card" data-id="${product.id}">
             <div class="product-grid-container">
               <a href="/products/${product.slugs}">
@@ -96,11 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 </svg>
               </div>
             </div>
-            <div class="product-information text-left">
-             <h2 class="name text-base text-left font-normal normal-case"> 
+            <div class="product-information">
+             <h2> 
              ${product.name}
               </h2>
-            <p class="price text-gray-600">${product.price} SEK
+            <p>${product.price} SEK
             </p>
             </div>
             </div>
@@ -118,31 +125,33 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
   fetch("/api/products")
-    .then(resp => resp.json())
-    .then(data => {
+    .then((resp) => resp.json())
+    .then((data) => {
       const productCard = document.getElementById("data-output");
       productCard.innerHTML =
-        generateProductHTML(data, "Nyheter") + generateProductHTML(data, "Vinter")+ generateProductHTML(data, "Landskap");
+        generateProductHTML(data, "Nyheter") +
+        generateProductHTML(data, "Vinter") +
+        generateProductHTML(data, "Landskap");
 
-      productCard.addEventListener("click", e => {
+      productCard.addEventListener("click", (e) => {
         if (e.target && e.target.classList.contains("add-to-cart-btn")) {
           const el = e.target.closest(".produkt-card"),
             product = {
               id: el.dataset.id,
               name: el.querySelector(".name").textContent.trim(),
-              price: parseFloat(el.querySelector(".price").textContent.replace("SEK", "").trim()),
+              price: parseFloat(
+                el.querySelector(".price").textContent.replace("SEK", "").trim()
+              ),
             };
           addToCart(product);
         }
       });
     })
-    .catch(err => console.error("Erreur produits:", err));
+    .catch((err) => console.error("Erreur produits:", err));
 
   syncCartWithBackend();
   closeNotification.addEventListener("click", () => {
     notification.classList.remove("opacity-100", "visible");
-    notification.classList.add("opacity-0", "invisible")});
-
-
-  
+    notification.classList.add("opacity-0", "invisible");
+  });
 });

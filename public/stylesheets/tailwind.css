@@ -86,10 +86,13 @@ p {
       }
 
       .product-information {
-        @apply  text-gray-900 text-base mt-2;
-    
-        .price {
-          @apply text-gray-700 text-base mb-4;
+        @apply text-base mt-2  w-full;
+
+        h2 {
+          @apply text-base text-left font-normal normal-case;
+        }
+        p {
+          @apply text-gray-600 text-base mb-4;
         }
       }
     }
