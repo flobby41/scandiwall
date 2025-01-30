@@ -141,7 +141,7 @@ function renderCart(cart) {
       <img src="${item.image}" alt="${item.name}">
       <div class="item-details">
         <h3>${item.name}</h3>
-        <p>${item.price}:- / pièce</p>
+        <p>${item.price}:- /st</p>
       </div>
       <div class="quantity-controls">
         <button onclick="updateQuantity(${item.cart_id}, -1)">−</button>
