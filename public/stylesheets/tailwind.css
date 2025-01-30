@@ -32,11 +32,26 @@ p {
   @apply bg-gray-800 hover:bg-gray-950 rounded-md py-3 px-6 font-roboto font-semibold text-base text-white;
 }
 
+.secondary-button {
+  @apply bg-white text-gray-800 border-2 border-gray-800 hover:bg-gray-800 hover:text-white rounded-md py-3 px-6 font-roboto font-semibold text-base;
+}
+
+.input-field {
+  @apply w-full p-2 border border-gray-300 rounded;
+}
+
+.selection-controls {
+  @apply flex flex-row gap-1 items-center;
+  > input {
+    @apply w-4 h-4;
+  }
+}
+
 .hero {
   @apply bg-gray-50;
 
   > div {
-    @apply flex flex-col gap-8 lg:gap-16 lg:flex-row-reverse items-center text-center lg:text-left justify-between my-4 px-8 md:px-28 py-16 lg:px-40 lg:py-32 max-w-screen-2xl mx-auto
+    @apply flex flex-col gap-8 lg:gap-16 lg:flex-row-reverse items-center text-center lg:text-left justify-between my-4 px-8 md:px-28 py-16 lg:px-40 lg:py-32 max-w-screen-2xl mx-auto;
   }
   .img-section {
     @apply w-1/3;
