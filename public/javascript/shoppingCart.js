@@ -148,7 +148,7 @@ function renderCart(cart) {
         <span>${item.quantity}</span>
         <button onclick="updateQuantity(${item.cart_id}, 1)">+</button>
       </div>
-      <span class="delete-btn" onclick="removeItem(${item.cart_id})">🗑</span>
+      <span class="delete-btn" onclick="removeItem(${item.cart_id})"><i class="bi bi-trash3"></i></span>
     `;
     cartItemsContainer.appendChild(cartItem);
   });
