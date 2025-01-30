@@ -1,115 +1,103 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirmation</title>
     <link href="/styles/output.css" rel="stylesheet" />
-      <link
+    <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
-      rel="stylesheet"/>
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }           
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #ffffff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-        h1 {
-            color: #4CAF50;
-            text-align: center;
-        }
-        p {
-            margin: 10px 0;
-        }
-        .order-details {
-            margin-top: 20px;
-            padding: 10px;
-            background: #f1f1f1;
-            border-radius: 5px;
-        }
-        .btn-home {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .btn-home:hover {
-            background-color: #45a049;
-        }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
     </style>
-</head>
-<body>
-  <%- include('partials/_header') %>
+  </head>
+  <body>
+    <%- include('partials/_header') %>
 
-  <div class="container">
-    <h1>Tack för ditt köp!</h1>
-    <p>Din beställning har bekräftats. Du kommer snart att få en bekräftelse via e-post.</p>
-    
-    <div class="order-details">
-        <h2>Beställningsdetaljer</h2>
-        <p><strong>Beställningsnummer:</strong> <span id="orderId"></span></p>
-        <p><strong>Totalt belopp:</strong> SEK<span id="totalPrice"></span></p>
-        <p><strong>Beställningsdatum:</strong> <span id="orderDate"></span></p>
-        <p><strong>Leveransadress:</strong></p>
-        <p id="deliveryAddress"></p>
+    <div class="container flex justify-center flex-col">
+      <h1 class="h1 text-gray-800 text-center">Tack för ditt köp!</h1>
+      <p class="text-center">
+        Din beställning har bekräftats. Du kommer snart att få en bekräftelse
+        via e-post.
+      </p>
+
+      <div class="mt-5 p-2.5 bg-gray-100 rounded-lg">
+        <h2
+          class="h2 p-2 text-xl font-extrabold text-center text-gray-800 uppercase"
+        >
+          Beställningsdetaljer
+        </h2>
+        <div class="p-4">
+          <p><strong>Beställningsnummer:</strong> <span id="orderId"></span></p>
+          <p>
+            <strong>Totalt belopp:</strong> SEK<span id="totalPrice"></span>
+          </p>
+          <p>
+            <strong>Beställningsdatum:</strong> <span id="orderDate"></span>
+          </p>
+          <p><strong>Leveransadress:</strong></p>
+          <p id="deliveryAddress"></p>
+        </div>
+      </div>
+      <div class="flex justify-center mt-5">
+        <a href="/" class="primary-button">Tillbaka till startsidan</a>
+      </div>
     </div>
-    
-    <a href="/" class="btn-home">Tillbaka till startsidan</a>
-</div>
-<%- include('partials/_footer') %>
+    <%- include('partials/_footer') %>
 
     <script>
-        const userId = "<%= userId %>"; // Transmettez l'ID utilisateur depuis le backend
-if (userId) {
-  console.log(`Utilisateur connecté : ID ${userId}`);
-} else {
-  console.log('Aucun utilisateur connecté.');
-}
+      const userId = "<%= userId %>"; // Skicka användar-ID från backend
+      if (userId) {
+        console.log(`Användare inloggad: ID ${userId}`);
+      } else {
+        console.log("Ingen användare inloggad.");
+      }
 
-        // Exemple de données à récupérer dynamiquement
-        window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search); // Accède à la chaîne de requête
-    const orderId = urlParams.get('orderId'); // Récupère le paramètre `orderId`
+      // Exempel på data att hämta dynamiskt
+      window.addEventListener("load", () => {
+        const urlParams = new URLSearchParams(window.location.search); // Åtkomst till frågesträngen
+        const orderId = urlParams.get("orderId"); // Hämtar parametern `orderId`
 
-    if (!orderId) {
-        document.body.innerHTML = '<p>Commande introuvable.</p>';
-        return;
-    }
+        if (!orderId) {
+          document.body.innerHTML = "<p>Beställning kunde inte hittas.</p>";
+          return;
+        }
 
-    // Appeler l'API pour récupérer les détails de la commande
-    fetch(`/api/orders/${orderId}`)
-        .then(response => {
+        // Anropa API:et för att hämta beställningsdetaljer
+        fetch(`/api/orders/${orderId}`)
+          .then((response) => {
             if (!response.ok) {
-                throw new Error('Erreur lors de la récupération des détails de la commande.');
+              throw new Error("Fel vid hämtning av beställningsdetaljer.");
             }
             return response.json();
-        })
-        .then(order => {
-            // Remplir les informations de la commande dans la page
-            document.getElementById('orderId').textContent = order.id;
-            document.getElementById('totalPrice').textContent = order.total_price.toFixed(2);
-            document.getElementById('orderDate').textContent = new Date(order.created_at).toLocaleDateString('fr-FR');
-            document.getElementById('deliveryAddress').textContent = order.delivery_address || 'Adresse non disponible';
-        })
-        .catch(error => {
+          })
+          .then((order) => {
+            // Fyll i beställningsinformationen på sidan
+            document.getElementById("orderId").textContent = order.id;
+            document.getElementById("totalPrice").textContent =
+              order.total_price.toFixed(2);
+            document.getElementById("orderDate").textContent = new Date(
+              order.created_at
+            ).toLocaleDateString("sv-SE");
+            document.getElementById("deliveryAddress").textContent =
+              order.delivery_address || "Adress ej tillgänglig";
+          })
+          .catch((error) => {
             console.error(error);
-            document.body.innerHTML = '<p>Erreur lors de l’affichage des informations de la commande.</p>';
-        });
-});
+            document.body.innerHTML =
+              "<p>Fel vid visning av beställningsinformation.</p>";
+          });
+      });
     </script>
-</body>
+    ```
+  </body>
 </html>

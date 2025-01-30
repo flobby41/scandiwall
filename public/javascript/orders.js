@@ -108,12 +108,12 @@ document.getElementById('cart-items').innerHTML = '';
   document.getElementById('shipping-fee').textContent = 'SEK 5.00';
   document.getElementById('total').textContent = 'SEK 5.00';
 
-// Lire toute la réponse JSON
-console.log('Réponse complète de l\'API :', jsonResponse);
-      alert(`Commande confirmée ! Numéro de commande : ${orderId}`);
-      window.location.href = `/orders/confirmation?orderId=${orderId}`;
-  } catch (error) {
-      console.error('Erreur lors de la confirmation de la commande :', error);
-      alert(`Erreur : ${error.message}`);
-  }
+// Läs hela JSON-svaret
+console.log('Komplett API-svar:', jsonResponse);
+alert(`Din beställning är bekräftad! Beställningsnummer: ${orderId}`);
+window.location.href = `/orders/confirmation?orderId=${orderId}`;
+} catch (error) {
+    console.error('Fel vid bekräftelse av beställningen:', error);
+    alert(`Fel: ${error.message}`);
+}
 });

@@ -66,14 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartBadge();
   };
 
-  const generateProductHTML = (products, category) =>
-    `
-
+  const generateProductHTML = (products, category) => `
   <section class="product-section">
     <h2>${category}</h2>
     <div class="product-grid">
-      ${products
-        .filter((product) => product.category === category)
+      ${shuffle(products)
+        .filter(product => product.category === category)
+        .slice(0, 4)
         .map(
           (product) => `
           <div class="produkt-card" data-id="${product.id}">
@@ -81,12 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
               <a href="/products/${product.slugs}">
                 <img 
                 src="${product.image}"
-                alt=" ${product.name} produktbild"
+                alt="${product.name} produktbild"
                 class="rounded-lg"
                 />
               </a>
               <div class="icon-container">
-
+  
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -112,17 +111,27 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             </div>
             
-          
-        `
+          `
         )
         .join("")}
-        </div>
-        <button class="primary-button lg:self-center">
-          <a href="/category/${category}">Se fler</a>
-        </button>
-    </section>
+      ${products.filter(product => product.category === category).length > 4 ? `
+        ` : ''}
+    </div>
+    <div class="flex justify-center sm:justify-start">
+      <button class="primary-button sm:min-w-full">
+        <a href="/category/${category}" class="w-full">Se fler</a>
+      </button>
+    </div>
+  </section>
+`;
 
-  `;
+function shuffle(array) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
   fetch("/api/products")
     .then((resp) => resp.json())
