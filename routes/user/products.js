@@ -1,7 +1,60 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-var sqlite3 = require("sqlite3").verbose();
-var db = new sqlite3.Database("./db/skandiWall.db"); // Rätt filväg
+const db = require('../../db/db');
+
+// Middleware principal pour la page d'accueil
+router.get('/', (req, res) => {
+  console.log('Utilisateur connecté (req.user) :', req.user);
+
+  db.all('SELECT * FROM products', (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Database error");
+    }
+
+      // Filtrera produkter baserat på kategorier
+      const nyheter = getRandomProducts(
+        rows.filter((product) => product.category === "Nyheter")
+      );
+      const vinter = getRandomProducts(
+        rows.filter((product) => product.category === "Vinter")
+      );
+      const landskap = getRandomProducts(
+        rows.filter((product) => product.category === "Landskap")
+      );
+      const fritid = getRandomProducts(
+        rows.filter((product) => product.category === "Fritid")
+      );
+  
+
+    res.render('index', {
+      title: 'SkandiWall',
+      products: rows,
+      products: { nyheter, vinter, landskap, fritid },
+      firstname: req.user?.first_name || 'gäst' ,
+      lastname: req.user?.last_name || '',
+      userId: req.user?.id || null, // Si req.user est undefined, userId sera null
+    });
+  });
+});
+router.get('/products/:slug', (req, res) => {
+  const slug = req.params.slug.toLowerCase();
+  const mainProductSql = 'SELECT id, name, price, image, slugs FROM products WHERE slugs = ?';
+
+  db.get(mainProductSql, [slug], (err, product) => {
+    if (err) {
+      console.error('Erreur lors de la récupération du produit :', err);
+      return res.status(500).send('Erreur de base de données.');
+    }
+
+    if (product) {
+      res.render('product-details', { product });
+    } else {
+      res.status(404).send('Produit introuvable');
+    }
+  });
+});
+
 
 // Funktion för att slumpa och hämta ett antal produkter från en lista
 const getRandomProducts = (products, num = 4) => {
@@ -9,61 +62,9 @@ const getRandomProducts = (products, num = 4) => {
   return shuffled.slice(0, num); // Välj det angivna antalet produkter
 };
 
-/* GET home page */
-router.get("/", function (req, res) {
-  db.all("SELECT * FROM products", (err, rows) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Database error");
-    }
 
-    // Filtrera produkter baserat på kategorier
-    const nyheter = getRandomProducts(
-      rows.filter((product) => product.category === "Nyheter")
-    );
-    const vinter = getRandomProducts(
-      rows.filter((product) => product.category === "Vinter")
-    );
-    const landskap = getRandomProducts(
-      rows.filter((product) => product.category === "Landskap")
-    );
-    const fritid = getRandomProducts(
-      rows.filter((product) => product.category === "Fritid")
-    );
 
-    // Rendera startsidan med kategoriserade produkter
-    res.render("index", {
-      title: "SkandiWall",
-      products: { nyheter, vinter, landskap, fritid },
-    });
-  });
-});
 
-/* GET product details page */
-router.get("/product-details/:id", function (req, res) {
-  const productId = req.params.id;
-
-  // Kontrollera om id är giltigt
-  if (!productId) {
-    return res.status(400).send("Product ID is required");
-  }
-
-  db.get("SELECT * FROM products WHERE id = ?", [productId], (err, row) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Database error");
-    }
-    if (!row) {
-      return res.status(404).send("Product not found");
-    }
-
-    // Rendera produktsidan
-    res.render("product-details", {
-      title: "Product Details",
-      product: row,
-    });
-  });
-});
 
 /* GET all posters */
 router.get("/product-list", function (req, res) {
@@ -141,8 +142,22 @@ router.get("/search", function (req, res) {
     }
   );
 });
-// Definiera dina footer-rutter här
-router.get("/", function (req, res) {
-  res.send("Footer menu");
+
+// Nouvelle route API pour récupérer des produits aléatoires
+router.get('/api/random-products', (req, res) => {
+  db.all('SELECT * FROM products', (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Database error");
+    }
+
+    res.json({
+      nyheter: getRandomProducts(rows.filter(product => product.category === "Nyheter")),
+      vinter: getRandomProducts(rows.filter(product => product.category === "Vinter")),
+      landskap: getRandomProducts(rows.filter(product => product.category === "Landskap")),
+      fritid: getRandomProducts(rows.filter(product => product.category === "Fritid"))
+    });
+  });
 });
+
 module.exports = router;

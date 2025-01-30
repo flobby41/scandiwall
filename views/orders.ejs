@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Page</title>
+  <link href="/styles/output.css" rel="stylesheet" />
+      <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"/>
+  <link rel="stylesheet">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.order-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 20px;
+}
+
+.order-summary {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.order-totals {
+  margin-top: 20px;
+}
+
+.order-totals p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.order-form {
+  flex: 2;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-form h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.payment-options,
+.address-fields,
+.billing-options {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.confirmBtn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirmBtn:hover {
+  background-color: #333;
+}
+
+.terms {
+  margin: 20px 0;
+}
+  </style>
+</head>
+<body>
+  <%- include('partials/_header') %>
+
+<div class="order-container">
+
+  <!-- Beställningsformulär -->
+  <div class="order-form">
+    <form action="/api/orders" method="POST">
+      <h2>Betalning</h2>
+      <div class="payment-options">
+        <label>
+          <input type="radio" name="payment" value="paypal" checked>
+          PayPal
+        </label>
+        <label>
+          <input type="radio" name="payment" value="klarna">
+          Klarna
+        </label>
+      </div>
+
+      <h2>Adress</h2>
+      <div class="address-fields">
+        <label>Adress
+          <input type="text" name="address" required>
+        </label>
+        <label>Postnummer
+          <input type="text" name="postal-code" required>
+        </label>
+        <label>Stad
+          <input type="text" name="city" required>
+        </label>
+        <label>Telefon
+          <input type="text" name="phone" required>
+        </label>
+      </div>
+
+      <h2>Faktureringsadress</h2>
+      <div class="billing-options">
+        <label>
+          <input type="radio" name="billing" value="same" checked>
+          Samma som leveransadress
+        </label>
+        <label>
+          <input type="radio" name="billing" value="different">
+          Använd en annan adress
+        </label>
+      </div>
+
+      <div class="terms">
+        <label>
+          <input type="checkbox" name="terms" required>
+          Jag har läst och accepterar <a href="#">Allmänna villkor</a>.
+        </label>
+      </div>
+
+      <button id="confirmOrderButton" class="confirmBtn" type="submit">Bekräfta beställning</button>
+    </form>
+  </div>
+
+  <!-- Beställningsöversikt -->
+  <div class="order-summary">
+    <h2>Beställningsöversikt</h2>
+    <div id="cart-items"></div>
+    <div class="order-totals">
+      <p>Delsumma: <span id="subtotal">€0.00</span></p>
+      <p>Fraktavgift: <span id="shipping-fee">€5.00</span></p>
+      <p><strong>Total: <span id="total">€0.00</span></strong></p>
+    </div>
+  </div>
+</div>
+<%- include('partials/_footer') %>
+
+<script src="/javascript/orders.js"></script>
+
+</body>
+</html>

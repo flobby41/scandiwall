@@ -5,7 +5,7 @@ const db = require('../../db/db');
 
 // Route pour afficher le panier de l'utilisateur
 router.get('/shoppingCart', (req, res) => {
-  res.render('shoppingCart');
+  res.render('shoppingCart', { userId: req.user?.id || null});
 });
 
 router.get('/api/cart', (req, res) => {
