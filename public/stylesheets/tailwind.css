@@ -81,7 +81,7 @@ p {
           @apply w-full h-auto rounded-lg;
         }
         .icon-container {
-          @apply absolute bottom-2 right-2;
+          @apply bg-white rounded-full w-8 h-8 absolute bottom-4 right-4 flex justify-center pt-0.75 hover:bg-gray-300 cursor-pointer;
         }
       }
 
