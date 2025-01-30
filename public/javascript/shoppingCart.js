@@ -7,6 +7,34 @@ const loginBtn = document.getElementById('login-btn');
 const guestBtn = document.getElementById('guest-btn');
 const cartApi = '/api/cart';
 
+document.addEventListener("DOMContentLoaded", () => {
+  const cartBadge = document.getElementById("cart-badge");
+
+const syncCartWithBackend = async () => {
+  try {
+    const res = await fetch(cartApi),
+      backendCart = await res.json();
+    cart = backendCart.map(item => ({
+      product_id: item.product_id,
+      name: item.name,
+      quantity: item.quantity,
+    }));
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartBadge();
+  } catch (e) {
+    console.error("Erreur sync:", e);
+  }
+};
+     // Synchroniser à l'ouverture ou lors de la navigation arrière
+     window.addEventListener("pageshow", syncCartWithBackend);
+
+const updateCartBadge = () => {
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartBadge.textContent = totalItems;
+  cartBadge.style.display = totalItems > 0 ? "flex" : "none";
+};
+})
+
 // Vérifie si l'utilisateur est connecté
 async function checkAuthentication() {
   try {
@@ -93,7 +121,6 @@ async function fetchCartItems() {
   try {
     const response = await fetch(cartApi);
     const cartItems = await response.json();
-    console.log('Articles du panier :', cartItems);
     renderCart(cartItems);
   } catch (error) {
     console.error('Erreur lors de la récupération des articles du panier :', error);

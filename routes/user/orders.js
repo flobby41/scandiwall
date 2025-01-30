@@ -17,8 +17,7 @@ router.get('/orders/confirmation', (req, res) => {
   if (!orderId) {
       return res.status(400).send('Order ID manquant.'); // Gère le cas où orderId est absent
   }
-  // Si tout va bien, renvoyer la page confirmation.html
-  res.sendFile(path.join(process.cwd(), 'views/confirmation.html')); // Adaptez le chemin
+  res.render('confirmation', { userId: req.user?.id || null });
 });
 
 
