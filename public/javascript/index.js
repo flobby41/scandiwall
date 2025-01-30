@@ -110,11 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
         )
         .join("")}
         </div>
-        <button class="primary-button lg:self-center">
-          <a href="/category/${category}">Se fler</a>
-        </button>
+    <div class="flex justify-center sm:justify-start">
+      <button class="primary-button sm:min-w-full">
+        <a href="/category/${category}" class="w-full">Se fler</a>
+      </button>
+    </div>
     </section>
-
   `;
 
   fetch("/api/products")
