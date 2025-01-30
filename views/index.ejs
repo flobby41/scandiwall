@@ -16,34 +16,6 @@
     <main>
       <!-- Hero  -->
       <section class="hero">
-        <br /><br />
-        <h1>Hej <%= firstname %> !</h1>
-
-        <% if (firstname !== 'gäst') { %>
-        <a
-          href="/profile/logout"
-          style="
-            padding: 10px;
-            background-color: red;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-          "
-          >Log out</a
-        >
-        <% } else { %>
-        <br /><a
-          href="/profile/login"
-          style="
-            padding: 10px;
-            background-color: green;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-          "
-          >Log in</a
-        >
-        <% } %>
         <div>
           <div class="img-section">
             <img src="/images/poster.png" alt="Hero image" />
