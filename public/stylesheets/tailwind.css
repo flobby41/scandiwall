@@ -86,8 +86,8 @@ p {
       }
 
       .product-information {
-        @apply  text-gray-900 text-base mt-2;
-    
+        @apply text-gray-900 text-base mt-2;
+
         .price {
           @apply text-gray-700 text-base mb-4;
         }
