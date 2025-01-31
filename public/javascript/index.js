@@ -129,9 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     </div>
     <div class="flex justify-center sm:justify-start">
-      <button class="primary-button sm:min-w-full">
-        <a href="/category/${category}" class="w-full">Se fler</a>
-      </button>
+      <a href="/category/${category}" class=" sm:min-w-full">
+        <button class="primary-button w-full">
+          Se fler
+        </button>
+      </a>
     </div>
   </section>
 `;
@@ -162,11 +164,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const el = e.target.closest(".product-card"),
             product = {
               id: el.dataset.id,
-              name: el
-                .querySelector(".nameF")
-                .textContent.trim(),
+              name: el.querySelector(".nameF").textContent.trim(),
               price: parseFloat(
-                el.querySelector(".priceF").textContent.replace("SEK", "").trim()
+                el
+                  .querySelector(".priceF")
+                  .textContent.replace("SEK", "")
+                  .trim()
               ),
               image: el.querySelector("img").getAttribute("src"), // Om du behöver bild också
             };
