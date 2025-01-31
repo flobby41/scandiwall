@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const showNotification = (productName) => {
-    notificationText.textContent = `${productName} has been added to your cart!`;
+    notificationText.textContent = `${productName} har lagts till i varukorgen!`;
 
     // Ajoute les classes pour afficher la notification
     notification.classList.remove("opacity-0", "invisible");
