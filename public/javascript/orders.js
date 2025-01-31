@@ -110,7 +110,6 @@ document.getElementById('cart-items').innerHTML = '';
 
 // Läs hela JSON-svaret
 console.log('Komplett API-svar:', jsonResponse);
-alert(`Din beställning är bekräftad! Beställningsnummer: ${orderId}`);
 window.location.href = `/orders/confirmation?orderId=${orderId}`;
 } catch (error) {
     console.error('Fel vid bekräftelse av beställningen:', error);
