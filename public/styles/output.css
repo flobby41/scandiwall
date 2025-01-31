@@ -676,10 +676,6 @@ video {
   z-index: 1000;
 }
 
-.m-4 {
-  margin: 1rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -815,22 +811,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-4 {
-  width: 1rem;
-}
-
-.w-2 {
-  width: 0.5rem;
-}
-
-.w-\[2rem\] {
-  width: 2rem;
-}
-
-.w-\[5rem\] {
-  width: 5rem;
 }
 
 .max-w-2xl {
@@ -1411,6 +1391,8 @@ p {
   border-radius: 9999px;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
 }
 
 .icon-button:hover {
@@ -1551,7 +1533,7 @@ p {
   padding-left: 2rem;
   padding-right: 2rem;
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
   .product-grid {
     margin-left: auto;
     margin-right: auto;
@@ -1586,16 +1568,16 @@ p {
     }
   }
   .product-grid {
-    .produkt-card {
+    .product-card {
       display: flex;
     }
-    .produkt-card {
+    .product-card {
       flex-direction: column;
     }
-    .produkt-card {
+    .product-card {
       align-items: center;
     }
-    .produkt-card {
+    .product-card {
       a {
         text-decoration-line: none;
       }
@@ -1761,6 +1743,11 @@ p {
 
   .md\:self-start {
     align-self: flex-start;
+  }
+
+  .md\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .md\:px-20 {

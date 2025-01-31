@@ -46,12 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const addToCart = (product) => {
     const existingProduct = cart.find((item) => item.product_id === product.id);
-    existingProduct
-      ? existingProduct.quantity++
-      : cart.push({ product_id: product.id, name: product.name, quantity: 1 });
+    if (existingProduct) {
+      existingProduct.quantity++;
+    } else {
+      cart.push({
+        product_id: product.id,
+        name: product.name,
+        quantity: 1,
+        price: product.price,
+      });
+    }
+
     console.log("cart ", cart);
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Skicka till backend (lägg till produkt i varukorgen på servern)
     fetch(cartAPI, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -62,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         price: product.price,
       }),
     }).catch((err) => console.error("Erreur ajout backend:", err));
+
     showNotification(product.name);
     updateCartBadge();
   };
@@ -71,28 +82,27 @@ document.addEventListener("DOMContentLoaded", () => {
     <h2>${category}</h2>
     <div class="product-grid">
       ${shuffle(products)
-        .filter(product => product.category === category)
+        .filter((product) => product.category === category)
         .slice(0, 4)
         .map(
           (product) => `
-          <div class="produkt-card" data-id="${product.id}">
+          <div class="product-card" data-id="${product.id}">
             <div class="product-grid-container">
               <a href="/products/${product.slugs}">
-                <img 
-                src="${product.image}"
-                alt="${product.name} produktbild"
-                class="rounded-lg"
+                <img
+                  src="${product.image}"
+                  alt="${product.name} produktbild"
+                  class="rounded-lg"
                 />
               </a>
               <div class="icon-container icon-button">
-  
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="add-to-cart-btn size-6 stroke-white"
+                  class="add-to-cart-btn size-6"
                 >
                   <path
                     stroke-linecap="round"
@@ -103,19 +113,20 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
             </div>
             <div class="product-information">
-             <h2> 
-             ${product.name}
-              </h2>
-            <p>${product.price} SEK
-            </p>
+              <h2>${product.name}</h2>
+              <p>${product.price} SEK</p>
             </div>
-            </div>
+          </div>
             
           `
         )
         .join("")}
-      ${products.filter(product => product.category === category).length > 4 ? `
-        ` : ''}
+      ${
+        products.filter((product) => product.category === category).length > 4
+          ? `
+        `
+          : ""
+      }
     </div>
     <div class="flex justify-center sm:justify-start">
       <button class="primary-button sm:min-w-full">
@@ -125,13 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </section>
 `;
 
-function shuffle(array) {
-  for (let i = array.length - 1; i >= 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+  function shuffle(array) {
+    for (let i = array.length - 1; i >= 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
-  return array;
-}
 
   fetch("/api/products")
     .then((resp) => resp.json())
@@ -144,14 +155,22 @@ function shuffle(array) {
 
       productCard.addEventListener("click", (e) => {
         if (e.target && e.target.classList.contains("add-to-cart-btn")) {
-          const el = e.target.closest(".produkt-card"),
+          // Förhindra att länken följer sin standardbeteende (om användaren klickar på en knapp inom en länk)
+          e.preventDefault();
+          e.stopPropagation(); // Förhindra att eventet bubbla upp till förälderelementet
+
+          const el = e.target.closest(".product-card"),
             product = {
               id: el.dataset.id,
-              name: el.querySelector(".name").textContent.trim(),
+              name: el
+                .querySelector(".product-information h2")
+                .textContent.trim(),
               price: parseFloat(
                 el.querySelector(".price").textContent.replace("SEK", "").trim()
               ),
+              image: el.querySelector("img").getAttribute("src"), // Om du behöver bild också
             };
+
           addToCart(product);
         }
       });
