@@ -1,51 +1,46 @@
-<header class="bg-white">
-  <div
-    class="flex items-center px-8 py-4 justify-between max-w-screen-2xl mx-auto"
-  >
-    <!-- Logotype -->
-    <a href="/">
-      <img src="/images/logotype.png" alt="Logo" class="max-w-52" />
-    </a>
-    <div class="flex flex-row items-center pt-4">
-      <!-- Menu -->
-      <nav class="hidden lg:block">
-        <div class="flex space-x-8 ml-auto">
-          <a href="#" class="uppercase font-extrabold hover:underline"
-            >Bästsäljare</a
-          >
-          <a href="#" class="uppercase font-extrabold hover:underline"
-            >Nyheter</a
-          >
-          <a href="#" class="uppercase font-extrabold hover:underline"
-            >Inspiration</a
-          >
-          <a
-            href="/product-list"
-            class="uppercase font-extrabold hover:underline"
-            >Alla posters</a
-          >
-        </div>
-      </nav>
+<header
+  class="bg-white flex items-center px-8 pt-4 justify-between max-w-screen-2xl mx-auto"
+>
+  <!-- Logotype -->
+  <a href="/">
+    <img src="/images/logotype.png" alt="Logo" class="max-w-52" />
+  </a>
+  <div class="flex flex-row items-center pt-4">
+    <!-- Menu -->
+    <nav class="hidden lg:block">
+      <div class="flex space-x-8 ml-auto">
+        <a href="#" class="uppercase font-extrabold hover:underline"
+          >Bästsäljare</a
+        >
+        <a href="#" class="uppercase font-extrabold hover:underline">Nyheter</a>
+        <a href="#" class="uppercase font-extrabold hover:underline"
+          >Inspiration</a
+        >
+        <a href="/product-list" class="uppercase font-extrabold hover:underline"
+          >Alla posters</a
+        >
+      </div>
+    </nav>
 
-      <!-- Search, Cart, and Dropdown Icon -->
-      <div class="flex items-center ml-6">
-        <!-- Search Button -->
-        <button id="searchBtn" class="p-2 rounded">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
-        </button>
+    <!-- Search, Cart, and Dropdown Icon -->
+    <div class="flex items-center space-x-2 ml-6">
+      <!-- Search Button -->
+      <button id="searchBtn" class="p-2 rounded">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+      </button>
 
         <!-- Cart Button -->
         <a href="/shoppingCart" class="relative mr-4">
@@ -77,61 +72,53 @@
           </div>
         </a>
 
-        <!-- Dropdown Icon -->
-        <div class="dropdown-icon block lg:hidden">
-          <button
-            onclick="toggleDropdown()"
-            class="hover:bg-gray-200 p-2 rounded-full"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          </button>
-        </div>
-        <button class="secondary-button hidden lg:block">Logga in</button>
-        <!-- Dropdown Menu -->
-        <div
-          id="dropdownMenu"
-          class="hidden absolute right-8 top-20 w-48 bg-white shadow-lg rounded-lg"
+      <!-- Dropdown Icon -->
+      <div class="dropdown-icon block lg:hidden">
+        <button
+          onclick="toggleDropdown()"
+          class="hover:bg-gray-200 p-2 rounded-full"
         >
-          <a
-            href="#"
-            class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
-            >Bästsäljare</a
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
           >
-          <a
-            href="#"
-            class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
-            >Nyheter</a
-          >
-          <a
-            href="#"
-            class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
-            >Inspiration</a
-          >
-          <a
-            href="/product-list"
-            class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
-            >Alla posters</a
-          >
-          <a
-            href="#"
-            class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
-          >
-            Logga in
-          </a>
-        </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </button>
+      </div>
+      <!-- Dropdown Menu -->
+      <div
+        id="dropdownMenu"
+        class="hidden absolute right-8 top-20 w-48 bg-white shadow-lg rounded-lg"
+      >
+        <a
+          href="#"
+          class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
+          >Bästsäljare</a
+        >
+        <a
+          href="#"
+          class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
+          >Nyheter</a
+        >
+        <a
+          href="#"
+          class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
+          >Inspiration</a
+        >
+        <a
+          href="/product-list"
+          class="flex flex-col px-6 py-4 text-gray-800 hover:bg-gray-100"
+          >Alla posters</a
+        >
       </div>
     </div>
   </div>
@@ -217,6 +204,4 @@
     dropdownMenu.classList.toggle("hidden");
   }
 </script>
-
-
 
