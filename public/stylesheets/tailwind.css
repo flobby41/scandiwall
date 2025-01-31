@@ -36,6 +36,10 @@ p {
   @apply bg-white text-gray-800 border-2 border-gray-800 hover:bg-gray-800 hover:text-white rounded-md py-3 px-6 font-roboto font-semibold text-base;
 }
 
+.icon-button {
+  @apply bg-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-gray-200 cursor-pointer;
+}
+
 .input-field {
   @apply w-full p-2 border border-gray-300 rounded;
 }
@@ -81,7 +85,7 @@ p {
           @apply w-full h-auto rounded-lg;
         }
         .icon-container {
-          @apply bg-white rounded-full w-8 h-8 absolute bottom-4 right-4 flex justify-center pt-0.75 hover:bg-gray-300 cursor-pointer;
+          @apply absolute bottom-4 right-4 pb-[0.2rem];
         }
       }
 

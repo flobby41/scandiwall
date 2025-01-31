@@ -676,6 +676,10 @@ video {
   z-index: 1000;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -811,6 +815,22 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-4 {
+  width: 1rem;
+}
+
+.w-2 {
+  width: 0.5rem;
+}
+
+.w-\[2rem\] {
+  width: 2rem;
+}
+
+.w-\[5rem\] {
+  width: 5rem;
 }
 
 .max-w-2xl {
@@ -1381,6 +1401,23 @@ p {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.icon-button {
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.icon-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+
 .input-field {
   width: 100%;
   border-radius: 0.25rem;
@@ -1582,10 +1619,13 @@ p {
           position: absolute;
         }
         .icon-container {
-          bottom: 0.5rem;
+          bottom: 1rem;
         }
         .icon-container {
-          right: 0.5rem;
+          right: 1rem;
+        }
+        .icon-container {
+          padding-bottom: 0.2rem;
         }
       }
       .product-information {
