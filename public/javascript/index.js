@@ -113,8 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
             </div>
             <div class="product-information">
-              <h2>${product.name}</h2>
-              <p>${product.price} SEK</p>
+              <h2 class="nameF">${product.name}</h2>
+              <p class="priceF">${product.price} SEK</p>
             </div>
           </div>
             
@@ -163,10 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
             product = {
               id: el.dataset.id,
               name: el
-                .querySelector(".product-information h2")
+                .querySelector(".nameF")
                 .textContent.trim(),
               price: parseFloat(
-                el.querySelector(".price").textContent.replace("SEK", "").trim()
+                el.querySelector(".priceF").textContent.replace("SEK", "").trim()
               ),
               image: el.querySelector("img").getAttribute("src"), // Om du behöver bild också
             };
