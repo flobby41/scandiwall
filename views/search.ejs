@@ -21,7 +21,7 @@
           <% products.forEach(function(product) { %>
           <div class="product-card">
             <div class="product-grid-container">
-              <a href="/product-details/<%= product.id %>">
+              <a href="/products/<%= product.slugs %>">
                 <img
                   src="/<%= product.image %>"
                   alt="<%= product.name %> produktbild"
