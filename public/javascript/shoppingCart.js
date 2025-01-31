@@ -1,154 +1,165 @@
-const cartItemsContainer = document.getElementById('cart-items');
-const subtotalElement = document.getElementById('subtotal');
-const openSidebarBtn = document.getElementById('open-sidebar');
-const closeSidebarBtn = document.getElementById('close-sidebar');
-const sidebar = document.getElementById('sidebar');
-const loginBtn = document.getElementById('login-btn');
-const guestBtn = document.getElementById('guest-btn');
-const cartApi = '/api/cart';
+const cartItemsContainer = document.getElementById("cart-items");
+const subtotalElement = document.getElementById("subtotal");
+const openSidebarBtn = document.getElementById("open-sidebar");
+const closeSidebarBtn = document.getElementById("close-sidebar");
+const sidebar = document.getElementById("sidebar");
+const loginBtn = document.getElementById("login-btn");
+const guestBtn = document.getElementById("guest-btn");
+const cartApi = "/api/cart";
 
 document.addEventListener("DOMContentLoaded", () => {
   const cartBadge = document.getElementById("cart-badge");
 
-const syncCartWithBackend = async () => {
-  try {
-    const res = await fetch(cartApi),
-      backendCart = await res.json();
-    cart = backendCart.map(item => ({
-      product_id: item.product_id,
-      name: item.name,
-      quantity: item.quantity,
-    }));
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartBadge();
-  } catch (e) {
-    console.error("Erreur sync:", e);
-  }
-};
-     // Synchroniser à l'ouverture ou lors de la navigation arrière
-     window.addEventListener("pageshow", syncCartWithBackend);
+  const syncCartWithBackend = async () => {
+    try {
+      const res = await fetch(cartApi),
+        backendCart = await res.json();
+      cart = backendCart.map((item) => ({
+        product_id: item.product_id,
+        name: item.name,
+        quantity: item.quantity,
+      }));
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartBadge();
+    } catch (e) {
+      console.error("Fel vid synkronisering:", e);
+    }
+  };
+  // Synkronisera vid öppning eller vid bakåtnavigering
+  window.addEventListener("pageshow", syncCartWithBackend);
 
-const updateCartBadge = () => {
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartBadge.textContent = totalItems;
-  cartBadge.style.display = totalItems > 0 ? "flex" : "none";
-};
-})
+  const updateCartBadge = () => {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartBadge.textContent = totalItems;
+    cartBadge.style.display = totalItems > 0 ? "flex" : "none";
+  };
+});
 
-// Vérifie si l'utilisateur est connecté
+// Kontrollerar om användaren är inloggad
 async function checkAuthentication() {
   try {
-    const response = await fetch('/profile/api/isAuthenticated');
+    const response = await fetch("/profile/api/isAuthenticated");
     const data = await response.json();
-    console.log('Authentification :', data.authenticated);
+    console.log("Autentisering:", data.authenticated);
     return data.authenticated;
   } catch (error) {
-    console.error('Erreur lors de la vérification de l\'authentification :', error);
+    console.error(
+      "Fel vid kontroll av autentisering:",
+      error
+    );
     return false;
   }
 }
 
-// Gère le clic sur "fortsätt till kassan"
-openSidebarBtn.addEventListener('click', async (e) => {
-  e.preventDefault(); // Empêche le comportement par défaut du lien
+// Hanterar klick på "fortsätt till kassan"
+openSidebarBtn.addEventListener("click", async (e) => {
+  e.preventDefault(); // Förhindrar standardbeteende för länken
   const isAuthenticated = await checkAuthentication();
 
   if (isAuthenticated) {
-    // Redirige directement vers la page des commandes si connecté
-    window.location.href = '/orders';
+    // Omdirigerar direkt till ordersidan om inloggad
+    window.location.href = "/orders";
   } else {
-    // Affiche la fenêtre latérale si non connecté
-    sidebar.classList.add('open');
+    // Visar sidopanelen om inte inloggad
+    sidebar.classList.add("open");
   }
 });
 
-// Bouton "gå med eller logga in"
-loginBtn.addEventListener('click', () => {
-  window.location.href = '/profile/login';
+// Knapp "gå med eller logga in"
+loginBtn.addEventListener("click", () => {
+  window.location.href = "/profile/login";
 });
 
 async function getCartItems() {
   try {
-      const response = await fetch('/api/cart'); // Endpoint pour récupérer le panier
-      if (!response.ok) throw new Error('Impossible de récupérer le panier.');
-      return await response.json();
+    const response = await fetch("/api/cart"); // Endpoint för att hämta varukorgen
+    if (!response.ok) throw new Error("Det går inte att hämta varukorgen.");
+    return await response.json();
   } catch (error) {
-      console.error('Erreur lors de la récupération du panier :', error);
-      return [];
+    console.error("Fel vid hämtning av varukorgen:", error);
+    return [];
   }
 }
 function calculateTotal(cart) {
   return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
-// Bouton "fortsätt som gäst"
-guestBtn.addEventListener('click', async () => {
+// Knapp "fortsätt som gäst"
+guestBtn.addEventListener("click", async () => {
   try {
-      const cartItems = await getCartItems(); // Récupère le panier via l'API
-      const total_price = calculateTotal(cartItems); // Calcule le total à partir des données récupérées
+    const cartItems = await getCartItems(); // Hämtar varukorgen via API
+    const total_price = calculateTotal(cartItems); // Beräknar totalbeloppet utifrån hämtade data
 
-      const response = await fetch('/api/orders', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cartItems, total_price }), // Utilise les données récupérées
-      });
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cartItems, total_price }), // Använder hämtade data
+    });
 
-      if (response.ok) {
-          const result = await response.json();
-          console.log('Commande passée en tant qu\'invité :', result);
-          window.location.href = '/orders'; // Redirige vers /orders
-        } else {
-          console.error('Erreur lors de la commande en tant qu\'invité.');
-      }
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Beställning lagd som gäst:", result);
+      window.location.href = "/orders"; // Omdirigerar till /orders
+    } else {
+      console.error("Fel vid beställning som gäst.");
+    }
   } catch (error) {
-      console.error('Erreur réseau :', error);
+    console.error("Nätverksfel:", error);
   }
 });
 
-// Ferme la fenêtre latérale
-closeSidebarBtn.addEventListener('click', () => {
-  sidebar.classList.remove('open');
+// Knapp "gå med eller logga in"
+guestBtn.addEventListener("click", () => {
+  window.location.href = "/orders";
 });
 
-// Ferme la fenêtre latérale si l'utilisateur clique en dehors
-document.addEventListener('click', (e) => {
+// Stänger sidopanelen
+closeSidebarBtn.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+});
+
+// Stänger sidopanelen om användaren klickar utanför
+document.addEventListener("click", (e) => {
   if (!sidebar.contains(e.target) && !openSidebarBtn.contains(e.target)) {
-    sidebar.classList.remove('open');
+    sidebar.classList.remove("open");
   }
 });
 
-// Récupère et affiche les articles du panier
+// Hämtar och visar varukorgens artiklar
 async function fetchCartItems() {
   try {
     const response = await fetch(cartApi);
     const cartItems = await response.json();
     renderCart(cartItems);
   } catch (error) {
-    console.error('Erreur lors de la récupération des articles du panier :', error);
+    console.error(
+      "Fel vid hämtning av varukorgens artiklar:",
+      error
+    );
   }
 }
 
-// Affiche les articles du panier
+// Visar varukorgens artiklar
 function renderCart(cart) {
-  cartItemsContainer.innerHTML = '';
+  cartItemsContainer.innerHTML = "";
   let subtotal = 0;
 
   cart.forEach((item) => {
     subtotal += item.price * item.quantity;
 
-    const cartItem = document.createElement('div');
-    cartItem.classList.add('cart-item');
+    const cartItem = document.createElement("div");
+    cartItem.classList.add("cart-item");
     cartItem.innerHTML = `
       <img src="${item.image}" alt="${item.name}">
       <div class="item-details">
         <h3>${item.name}</h3>
-        <p>${item.price}:- / pièce</p>
+        <p>${item.price}:- /st</p>
       </div>
       <div class="quantity-controls">
         <button onclick="updateQuantity(${item.cart_id}, -1)">−</button>
         <span>${item.quantity}</span>
         <button onclick="updateQuantity(${item.cart_id}, 1)">+</button>
       </div>
-      <span class="delete-btn" onclick="removeItem(${item.cart_id})">🗑</span>
+      <div class="icon-button" onclick="removeItem(${item.cart_id})"><i class="bi bi-trash3"></i></div>
     `;
     cartItemsContainer.appendChild(cartItem);
   });
@@ -156,29 +167,29 @@ function renderCart(cart) {
   subtotalElement.textContent = `${subtotal}:-`;
 }
 
-// Met à jour la quantité d'un article
+// Uppdaterar en artikels kvantitet
 async function updateQuantity(id, change) {
   try {
     await fetch(`${cartApi}/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ change }),
     });
-    fetchCartItems(); // Recharge les articles après modification
+    fetchCartItems(); // Laddar om artiklarna efter ändring
   } catch (error) {
-    console.error('Erreur lors de la mise à jour de la quantité :', error);
+    console.error("Fel vid uppdatering av kvantitet:", error);
   }
 }
 
-// Supprime un article du panier
+// Tar bort en artikel från varukorgen
 async function removeItem(id) {
   try {
-    await fetch(`${cartApi}/${id}`, { method: 'DELETE' });
-    fetchCartItems(); // Recharge les articles après suppression
+    await fetch(`${cartApi}/${id}`, { method: "DELETE" });
+    fetchCartItems(); // Laddar om artiklarna efter borttagning
   } catch (error) {
-    console.error('Erreur lors de la suppression d\'un article :', error);
+    console.error("Fel vid borttagning av en artikel:", error);
   }
 }
 
-// Charge les articles du panier à l'ouverture de la page
+// Laddar varukorgens artiklar vid sidans öppning
 fetchCartItems();
