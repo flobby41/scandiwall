@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Affiche une notification
   const showNotification = (productName) => {
-    notificationText.textContent = `${productName} has been added to your cart!`;
+    notificationText.textContent = `${productName} har lagts till i varukorgen!`;
 
     // Ajoute les classes Tailwind pour afficher la notification
     notification.classList.remove('opacity-0', 'invisible');

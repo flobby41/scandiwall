@@ -608,6 +608,10 @@ video {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .inset-0 {
   inset: 0px;
 }
@@ -618,6 +622,10 @@ video {
 
 .right-2 {
   right: 0.5rem;
+}
+
+.right-3 {
+  right: 0.75rem;
 }
 
 .right-5 {
@@ -632,12 +640,20 @@ video {
   right: -5px;
 }
 
+.top-0 {
+  top: 0px;
+}
+
 .top-2 {
   top: 0.5rem;
 }
 
 .top-20 {
   top: 5rem;
+}
+
+.top-3 {
+  top: 0.75rem;
 }
 
 .top-5 {
@@ -663,6 +679,16 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .mb-2 {
@@ -885,6 +911,12 @@ video {
   gap: 2rem;
 }
 
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
@@ -895,6 +927,10 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.self-center {
+  align-self: center;
 }
 
 .overflow-x-auto {
@@ -1101,6 +1137,11 @@ video {
   font-family: Roboto, sans-serif;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -1161,6 +1202,10 @@ video {
 
 .normal-case {
   text-transform: none;
+}
+
+.leading-7 {
+  line-height: 1.75rem;
 }
 
 .leading-\[32px\] {
@@ -1342,6 +1387,25 @@ p {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.icon-button {
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+
+.icon-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+
 .input-field {
   width: 100%;
   border-radius: 0.25rem;
@@ -1475,7 +1539,7 @@ p {
   padding-left: 2rem;
   padding-right: 2rem;
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
   .product-grid {
     margin-left: auto;
     margin-right: auto;
@@ -1510,16 +1574,16 @@ p {
     }
   }
   .product-grid {
-    .produkt-card {
+    .product-card {
       display: flex;
     }
-    .produkt-card {
+    .product-card {
       flex-direction: column;
     }
-    .produkt-card {
+    .product-card {
       align-items: center;
     }
-    .produkt-card {
+    .product-card {
       a {
         text-decoration-line: none;
       }
@@ -1543,34 +1607,49 @@ p {
           position: absolute;
         }
         .icon-container {
-          bottom: 0.5rem;
+          bottom: 1rem;
         }
         .icon-container {
-          right: 0.5rem;
+          right: 1rem;
+        }
+        .icon-container {
+          padding-bottom: 0.2rem;
         }
       }
       .product-information {
         margin-top: 0.5rem;
       }
       .product-information {
+        width: 100%;
+      }
+      .product-information {
         font-size: 1rem;
         line-height: 1.5rem;
       }
       .product-information {
-        --tw-text-opacity: 1;
-        color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-      }
-      .product-information {
-        .price {
-          margin-bottom: 1rem;
+        h2 {
+          text-align: left;
         }
-        .price {
+        h2 {
           font-size: 1rem;
           line-height: 1.5rem;
         }
-        .price {
+        h2 {
+          font-weight: 400;
+        }
+        h2 {
+          text-transform: none;
+        }
+        p {
+          margin-bottom: 1rem;
+        }
+        p {
+          font-size: 1rem;
+          line-height: 1.5rem;
+        }
+        p {
           --tw-text-opacity: 1;
-          color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+          color: rgb(75 85 99 / var(--tw-text-opacity, 1));
         }
       }
     }
@@ -1670,6 +1749,11 @@ p {
 
   .md\:self-start {
     align-self: flex-start;
+  }
+
+  .md\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .md\:px-20 {
