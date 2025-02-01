@@ -16,7 +16,7 @@
     >
       <h1><%= title %></h1>
       <section class="product-section">
-        <div class="product-grid">
+        <div class="product-grid" id="wesh">
           <% if (products.length > 0) { %> <% products.forEach((product) => { %>
           <div class="product-card" data-id="<%= product.id %>">
             <div class="product-grid-container">
@@ -44,8 +44,8 @@
               </div>
             </div>
             <div class="product-information">
-              <h2><%= product.name %></h2>
-              <p class="price"><%= product.price %> SEK</p>
+              <h2 class="nameF"><%= product.name %></h2>
+              <p class="priceF"><%= product.price %> SEK</p>
             </div>
           </div>
           <% }); %> <% } else { %>
@@ -53,39 +53,34 @@
           <% } %>
         </div>
       </section>
+      <div
+      class="fixed top-5 right-5 bg-black text-white p-4 rounded shadow-lg flex items-center gap-2 z-[1000] opacity-0 invisible transition-opacity duration-300"
+      id="notification"
+    >
+      <span id="notification-text"></span>
+      <a
+        href="/shoppingCart"
+        id="view-cart"
+        class="text-blue-500 no-underline hover:underline"
+        >Gå till varukorgen</a
+      >
+      <button
+        class="bg-none border-none text-white text-base cursor-pointer"
+        id="close-notification"
+      ></button>
+    </div>
     </main>
 
     <%- include('partials/_footer') %>
     <script>
-const cartAPI = '/api/cart'
-
-document.addEventListener("DOMContentLoaded", () => {
-  const cartBadge = document.getElementById("cart-badge");
-
-const syncCartWithBackend = async () => {
-  try {
-    const res = await fetch(cartAPI),
-      backendCart = await res.json();
-    cart = backendCart.map(item => ({
-      product_id: item.product_id,
-      name: item.name,
-      quantity: item.quantity,
-    }));
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartBadge();
-  } catch (e) {
-    console.error("Erreur sync:", e);
-  }
-};
-     // Synchroniser à l'ouverture ou lors de la navigation arrière
-     window.addEventListener("pageshow", syncCartWithBackend);
-
-const updateCartBadge = () => {
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartBadge.textContent = totalItems;
-  cartBadge.style.display = totalItems > 0 ? "flex" : "none";
-};
-})
+        const userId = "<%= userId %>"; // Transmettez l'ID utilisateur depuis le backend
+      if (userId) {
+        console.log(`Utilisateur connecté : ID ${userId}`);
+      } else {
+        console.log("Aucun utilisateur connecté.");
+      }
 </script>
+<script src="/javascript/product-list.js"></script>
+
   </body>
 </html>
