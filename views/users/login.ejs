@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/styles/output.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('../partials/_header') %>
+    <main class="flex justify-center py-16 px-8">
+      <div class="w-full max-w-2xl">
+        <h1
+          id="formHeading"
+          class="text-3xl font-bold text-gray-800 mb-4 text-center"
+        >
+          Logga in
+        </h1>
+        <% if (messages.error) { %>
+          <div style="color: red;"><%= messages.error %></div>
+        <% } %>
+        <% if (messages && messages.expired) { %>
+          <div class="alert alert-warning"><%= messages.expired %></div>
+        <% } %>
+        <p class="text-left p-5">
+          Välkommen tillbaka! Logga in för att fortsätta och få tillgång till
+          ditt konto.
+        </p>
+        <form
+          class="bg-white shadow-md rounded-lg p-6 space-y-6"
+          action="/profile/login"
+          method="POST"
+          aria-labelledby="formHeading"
+        >
+          <div>
+            <label for="email" class="block text-gray-800 font-semibold mb-2">
+              E-post <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block text-gray-800 font-semibold mb-2"
+            >
+              Lösenord <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+          <div class="flex justify-center gap-4">
+            <button
+              type="submit"
+              class="primary-button flex items-center justify-center gap-2 px-6 py-3 w-auto h-[52px] bg-gray-800 text-white text-[14px] lg:text-[16px] font-roboto font-semibold rounded-[6px] focus:ring-2 focus:ring-gray-500 focus:outline-none"
+            >
+              Logga in
+            </button>
+            <a
+              href="/profile/register"
+              class="secondary-button flex items-center justify-center px-6 py-3 w-auto h-[52px] border-2 border-gray-800 rounded-[6px] text-gray-800 text-[14px] lg:text-[16px] font-roboto font-semibold focus:ring-2 focus:ring-gray-500 focus:outline-none"
+            >
+              Bli medlem
+            </a>
+          </div>
+        </form>
+      </div>
+    </main>
+    <%- include('../partials/_footer') %>
+    <div
+      class="fixed top-5 right-5 bg-black text-white p-4 rounded shadow-lg flex items-center gap-2 z-[1000] opacity-0 invisible transition-opacity duration-300"
+      id="notification"
+    >
+      <span id="notification-text"></span>
+      <a
+        href="/shoppingCart"
+        id="view-cart"
+        class="text-blue-500 no-underline hover:underline"
+        >View Cart</a
+      >
+      <button
+        class="bg-none border-none text-white text-base cursor-pointer"
+        id="close-notification"
+      >
+        ×
+      </button>
+    </div>
+  </body>
+</html>
+
+<form action="/login" method="POST">
+  <!-- <form action="profile/login" method="POST"> -->
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email" required />
+  <label for="password">Password:</label>
+  <input type="password" name="password" id="password" required />
+  <button type="submit">Login</button>
+  <br /><br />
+  <!-- <a href="/profile/register">register</a> -->
+  <a href="/users/profile/register">Bli medlem</a>
+</form>

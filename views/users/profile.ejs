@@ -1,0 +1,34 @@
+<h2>Historique de vos commandes</h2>
+<ul id="order-list"></ul>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('/api/orders/user')
+    .then(response => response.json())
+    .then(orders => {
+      const orderList = document.getElementById('order-list');
+
+      if (orders.length === 0) {
+        orderList.innerHTML = "<p>Aucune commande passée.</p>";
+      } else {
+        orders.forEach(order => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+            <h3>Commande #${order.id} - ${order.total_price}€ - ${order.status} (${order.created_at})</h3>
+            <ul>
+              ${order.items.map(item => `
+                 <li>
+    <img src="/uploads/${item.image}" alt="${item.name}" width="50" 
+         onerror="this.onerror=null; this.src='/images/default.png';">
+    ${item.name} - ${item.quantity} x ${item.price}€
+  </li>
+              `).join('')}
+            </ul>
+          `;
+          orderList.appendChild(listItem);
+        });
+      }
+    })
+    .catch(error => console.error('Erreur de chargement des commandes:', error));
+});
+</script>

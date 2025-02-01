@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link href="/styles/output.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&family=Jaro&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <%- include('../partials/_header') %>
+  
+    <main class="flex flex-col gap-10 md:flex-row w-full py-16 px-8 md:px-20 max-w-screen-2xl mx-auto md:items-center">
+      <div class="text-section">
+        <h1>Kontakta oss</h1>
+
+        <p class="mb-2">Vi på Skandiawall är alltid här för att hjälpa dig! Om du har några frågor, synpunkter eller
+          behöver hjälp med
+          din beställning, tveka inte att kontakta oss. Vi strävar efter att ge bästa möjliga kundservice och ser fram
+          emot att höra från dig.</p>
+
+        <p><span class="font-bold">Vår kundtjänst</span></p>
+        <p>För frågor om produkter, beställningar eller leveranser, vänligen kontakta vår kundtjänst via e-post på <a
+            href="mailto:kundtjanst@skandiwall.se" class="text-blue-600">kundtjanst@skandiwall.se</a>. Vi strävar efter
+          att svara på alla förfrågningar inom 24 timmar på vardagar.</p>
+
+        <p><span class="font-bold">Adress:</span></p>
+        <p>Skandiawall AB</p>
+        <p>Storgatan 1</p>
+        <p>123 45 Stockholm</p>
+
+        <p><span class="font-bold">Telefon:</span></p>
+        <p>Om du föredrar att prata med oss direkt, kan du nå oss på telefonnummer <span class="font-bold">08-123 45
+            67</span> under våra öppettider:</p>
+        <ul>
+          <li>Måndag - Fredag: 9:00 - 17:00</li>
+          <li>Lördag: Stängt</li>
+          <li>Söndag: Stängt</li>
+        </ul>
+
+        <p><span class="font-bold">Öppettider för kundtjänst:</span></p>
+        <ul>
+          <li>Måndag - Fredag: 9:00 - 18:00</li>
+          <li>Lördag - Söndag: Stängt</li>
+        </ul>
+
+        <p>Vi ser fram emot att hjälpa dig! Tack för att du valt Skandiawall.</p>
+      </div>
+    </main>
+
+    <%- include('../partials/_footer') %>
+</body>
+
+</html>
