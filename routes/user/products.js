@@ -11,25 +11,9 @@ router.get("/", (req, res) => {
       console.error(err);
       return res.status(500).send("Database error");
     }
-
-    // Filtrera produkter baserat på kategorier
-    const nyheter = getRandomProducts(
-      rows.filter((product) => product.category === "Nyheter")
-    );
-    const vinter = getRandomProducts(
-      rows.filter((product) => product.category === "Vinter")
-    );
-    const landskap = getRandomProducts(
-      rows.filter((product) => product.category === "Landskap")
-    );
-    const fritid = getRandomProducts(
-      rows.filter((product) => product.category === "Fritid")
-    );
-
     res.render("index", {
       title: "SkandiWall",
       products: rows,
-      products: { nyheter, vinter, landskap, fritid },
       firstname: req.user?.first_name || "gäst",
       lastname: req.user?.last_name || "",
       userId: req.user?.id || null, // Si req.user est undefined, userId sera null
@@ -55,11 +39,6 @@ router.get("/products/:slug", (req, res) => {
   });
 });
 
-// Funktion för att slumpa och hämta ett antal produkter från en lista
-const getRandomProducts = (products, num = 4) => {
-  const shuffled = products.sort(() => 0.5 - Math.random()); // Blanda produkterna
-  return shuffled.slice(0, num); // Välj det angivna antalet produkter
-};
 
 /* GET all posters */
 router.get("/product-list", function (req, res) {
@@ -68,11 +47,11 @@ router.get("/product-list", function (req, res) {
       console.error(err);
       return res.status(500).send("Database error");
     }
-
     // Rendera listan med alla produkter
     res.render("product-list", {
       title: "Alla posters",
       products: rows,
+      userId: req.user?.id || null,
       category: "Alla posters",
     });
   });
@@ -100,6 +79,7 @@ router.get("/category/:category", function (req, res) {
       res.render("product-list", {
         title: `${category}`,
         products: rows,
+        userId: req.user?.id || null,
         category,
       });
     }
