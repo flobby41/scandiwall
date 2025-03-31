@@ -17,7 +17,7 @@ var productsApiRouter = require('./routes/api/products');
 var userRouter = require('./routes/user/profile');
 var adminUsers = require('./routes/admin/users');
 var userOrder = require('./routes/user/orders');
-var footerMenuRoutes = require("./routes/footerMenu"); // eller rätt sökväg
+var footerMenuRoutes = require("./routes/footermenu"); // Correction de la casse (footermenu au lieu de footerMenu)
 
 
 // view engine setup
@@ -109,17 +109,21 @@ app.use(function (err, req, res, next) {
 // Initialisation de Passport
 initializePassport(
   passport,
-  (email, callback) => {
-    db.get(`SELECT * FROM users WHERE email = ?`, [email], (err, user) => {
-      if (err) return callback(err);
-      callback(null, user);
-    });
+  async (email) => {
+    try {
+      return await db.getUserByEmail(email);
+    } catch (err) {
+      console.error('Erreur lors de la recherche par email:', err);
+      return null;
+    }
   },
-  (id, callback) => {
-    db.get(`SELECT * FROM users WHERE id = ?`, [id], (err, user) => {
-      if (err) return callback(err);
-      callback(null, user);
-    });
+  async (id) => {
+    try {
+      return await db.getUser(id);
+    } catch (err) {
+      console.error('Erreur lors de la recherche par ID:', err);
+      return null;
+    }
   }
 );
 

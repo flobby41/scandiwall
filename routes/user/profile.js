@@ -206,13 +206,14 @@ console.log('voici req.session.cart.map : ', savePromises)
 });
 
 router.get('/api/isAuthenticated', (req, res) => {
-  console.log('isAutreq.session.carthenticated:', req.isAuthenticated);
-  console.log('Vérification d\'authentification :', req.isAuthenticated());
-  if (req.isAuthenticated && req.isAuthenticated()) {
-    res.json({ authenticated: true });
-  } else {
-    res.json({ authenticated: false });
-  }
+  res.json({ 
+    authenticated: req.isAuthenticated(), 
+    user: req.user ? {
+      id: req.user._id || req.user.id,
+      name: `${req.user.first_name} ${req.user.last_name}`,
+      email: req.user.email
+    } : null 
+  });
 });
 
 

@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/images/(.*)",
+      "dest": "/public/images/$1"
+    },
+    {
+      "src": "/stylesheets/(.*)",
+      "dest": "/public/stylesheets/$1"
+    },
+    {
+      "src": "/javascript/(.*)",
+      "dest": "/public/javascript/$1"
+    },
+    {
+      "src": "/styles/(.*)",
+      "dest": "/public/styles/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "app.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "USE_MONGODB": "true"
+  }
+}

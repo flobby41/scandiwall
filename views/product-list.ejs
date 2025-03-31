@@ -18,7 +18,7 @@
       <section class="product-section">
         <div class="product-grid" id="wesh">
           <% if (products.length > 0) { %> <% products.forEach((product) => { %>
-          <div class="product-card" data-id="<%= product.id %>">
+          <div class="product-card" data-id="<%= product._id %>">
             <div class="product-grid-container">
               <a href="/products/<%= product.slugs %>">
                 <img

@@ -128,13 +128,14 @@ document.addEventListener("click", (e) => {
 async function fetchCartItems() {
   try {
     const response = await fetch(cartApi);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
     const cartItems = await response.json();
+    console.log("Éléments du panier récupérés:", cartItems);
     renderCart(cartItems);
   } catch (error) {
-    console.error(
-      "Fel vid hämtning av varukorgens artiklar:",
-      error
-    );
+    console.error("Fel vid hämtning av varukorgens artiklar:", error);
   }
 }
 
@@ -143,25 +144,46 @@ function renderCart(cart) {
   cartItemsContainer.innerHTML = "";
   let subtotal = 0;
 
-  cart.forEach((item) => {
-    subtotal += item.price * item.quantity;
+  if (!cart || cart.length === 0) {
+    cartItemsContainer.innerHTML = "<p>Din varukorg är tom</p>";
+    subtotalElement.textContent = "0:-";
+    return;
+  }
 
-    const cartItem = document.createElement("div");
-    cartItem.classList.add("cart-item");
-    cartItem.innerHTML = `
-      <img src="${item.image}" alt="${item.name}">
-      <div class="item-details">
-        <h3>${item.name}</h3>
-        <p>${item.price}:- /st</p>
-      </div>
-      <div class="quantity-controls">
-        <button onclick="updateQuantity(${item.cart_id}, -1)">−</button>
-        <span>${item.quantity}</span>
-        <button onclick="updateQuantity(${item.cart_id}, 1)">+</button>
-      </div>
-      <div class="icon-button" onclick="removeItem(${item.cart_id})"><i class="bi bi-trash3"></i></div>
-    `;
-    cartItemsContainer.appendChild(cartItem);
+  cart.forEach((item) => {
+    if (!item) return; // Ignorer les éléments nuls
+    
+    try {
+      // Vérifier que toutes les propriétés nécessaires sont présentes
+      if (!item.cart_id) {
+        console.error("Élément du panier sans ID:", item);
+        return;
+      }
+      
+      const itemPrice = parseFloat(item.price) || 0;
+      const itemQuantity = parseInt(item.quantity) || 0;
+      
+      subtotal += itemPrice * itemQuantity;
+
+      const cartItem = document.createElement("div");
+      cartItem.classList.add("cart-item");
+      cartItem.innerHTML = `
+        <img src="${item.image || '/images/poster.png'}" alt="${item.name || 'Produit'}">
+        <div class="item-details">
+          <h3>${item.name || 'Produit inconnu'}</h3>
+          <p>${itemPrice}:- /st</p>
+        </div>
+        <div class="quantity-controls">
+          <button onclick="updateQuantity('${item.cart_id}', -1)">−</button>
+          <span>${itemQuantity}</span>
+          <button onclick="updateQuantity('${item.cart_id}', 1)">+</button>
+        </div>
+        <div class="icon-button" onclick="removeItem('${item.cart_id}')"><i class="bi bi-trash3"></i></div>
+      `;
+      cartItemsContainer.appendChild(cartItem);
+    } catch (error) {
+      console.error("Erreur lors du rendu d'un élément du panier:", error, item);
+    }
   });
 
   subtotalElement.textContent = `${subtotal}:-`;
@@ -170,24 +192,42 @@ function renderCart(cart) {
 // Uppdaterar en artikels kvantitet
 async function updateQuantity(id, change) {
   try {
-    await fetch(`${cartApi}/${id}`, {
+    console.log(`Mise à jour de la quantité: ID=${id}, changement=${change}`);
+    const response = await fetch(`${cartApi}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ change }),
     });
-    fetchCartItems(); // Laddar om artiklarna efter ändring
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`HTTP error ${response.status}: ${errorData.error || response.statusText}`);
+    }
+    
+    // Recharger les articles après la mise à jour
+    fetchCartItems();
   } catch (error) {
     console.error("Fel vid uppdatering av kvantitet:", error);
+    alert("Une erreur s'est produite lors de la mise à jour du panier. Veuillez réessayer.");
   }
 }
 
 // Tar bort en artikel från varukorgen
 async function removeItem(id) {
   try {
-    await fetch(`${cartApi}/${id}`, { method: "DELETE" });
-    fetchCartItems(); // Laddar om artiklarna efter borttagning
+    console.log(`Suppression de l'élément: ID=${id}`);
+    const response = await fetch(`${cartApi}/${id}`, { method: "DELETE" });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`HTTP error ${response.status}: ${errorData.error || response.statusText}`);
+    }
+    
+    // Recharger les articles après la suppression
+    fetchCartItems();
   } catch (error) {
     console.error("Fel vid borttagning av en artikel:", error);
+    alert("Une erreur s'est produite lors de la suppression de l'article. Veuillez réessayer.");
   }
 }
 

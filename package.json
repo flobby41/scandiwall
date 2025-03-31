@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
+    "build": "echo 'Build completed'",
+    "dev": "nodemon ./bin/www",
     "tailwind:watch": "npx tailwindcss -i ./public/stylesheets/tailwind.css -o ./public/styles/output.css --watch"
   },
   "dependencies": {
@@ -12,17 +14,22 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.4.7",
-    "ejs": "~2.6.1",
-    "express": "~4.16.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
     "express-session": "^1.18.1",
     "http-errors": "~1.6.3",
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.13.1",
     "morgan": "~1.9.1",
     "passport": "^0.7.0",
-    "passport-local": "^1.0.0",
-    "sqlite3": "^5.1.7"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9",
-    "tailwindcss": "^3.4.16"
+    "tailwindcss": "^3.4.16",
+    "sqlite3": "^5.1.7"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }

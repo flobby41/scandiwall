@@ -74,3 +74,7 @@ public/styles/output.css
 # Ignore DS_Store
 .DS_Store
 public/styles/output.css
+
+# Additional sensitive files
+.vercel
+db/skandiWall.db

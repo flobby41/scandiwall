@@ -72,4 +72,4 @@ This script:
 The MongoDB schema corresponds to the SQLite structure but with some differences:
 - IDs are MongoDB ObjectIds
 - Relations use references (for example, `user` refers to a `User` document)
-- Dates use the native MongoDB format
+- Dates use the native MongoDB format 

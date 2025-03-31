@@ -45,6 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const addToCart = (product) => {
+    console.log('Ajout au panier - produit reçu:', product);
+    
+    if (!product || !product.id) {
+      console.error('Erreur: ID du produit manquant ou invalide', product);
+      return;
+    }
+    
     const existingProduct = cart.find((item) => item.product_id === product.id);
     if (existingProduct) {
       existingProduct.quantity++;
@@ -60,6 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
+    // Définir un ID utilisateur par défaut pour les invités
+    const userId = 1; // ID utilisateur par défaut
+
     // Skicka till backend (lägg till produkt i varukorgen på servern)
     fetch(cartAPI, {
       method: "POST",
@@ -70,20 +80,37 @@ document.addEventListener("DOMContentLoaded", () => {
         quantity: 1,
         price: product.price,
       }),
-    }).catch((err) => console.error("Erreur ajout backend:", err));
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => {
+          throw new Error(err.error || 'Erreur lors de l\'ajout au panier');
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Produit ajouté avec succès:', data);
+    })
+    .catch((err) => console.error("Erreur ajout backend:", err));
 
     showNotification(product.name);
     updateCartBadge();
   };
 
- 
+  
 
   
   fetch("/api/products")
     .then((resp) => resp.json())
     .then((data) => {
+      // Normaliser les données pour s'assurer que chaque produit a un 'id' (pour la compatibilité)
+      const normalizedData = data.map(product => ({
+        ...product,
+        id: product._id // Utiliser l'_id comme id
+      }));
+      
       const productCard = document.getElementById("wesh");
-
 
       productCard.addEventListener("click", (e) => {
         if (e.target && e.target.classList.contains("add-to-cart-btn")) {
